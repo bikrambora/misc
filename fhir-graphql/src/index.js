@@ -22,6 +22,12 @@ const trace = (msg) => R.tap(x => console.log(msg, x));
 const notNil = R.compose(R.not, R.isNil);
 const greaterThan = R.flip(R.gt);
 const lengthGreaterThan = x => R.compose(greaterThan(x), R.length);
+const capitalize = str => R.compose(
+  R.join(''),
+  R.remove(1, 1),
+  R.concat(R.__, str),
+  R.compose(R.toUpper, R.head)
+)(str);
 
 // FHIR
 const toFieldName = R.compose(R.replace(/-/g, "_"), R.path(['resource', 'name']));
@@ -35,16 +41,29 @@ const makeSearchParamsByType = R.compose(R.map(R.concat([{name: "_id", fieldArgN
 const searchParamsByType = R.compose(makeSearchParamsByType, makeSearchParams)(searchParameters);
 const schemaItemHasElement = R.compose(
   R.both(notNil, lengthGreaterThan(1)),
-  R.path(['snapshot', 'element'])
+  R.path(['resource', 'snapshot', 'element'])
 );
-const importStructure = (schema) => R.compose(
-  R.chain(path(['snapshot', 'element']),
+const whenPathHasX = R.when(
+  R.compose(R.test(/\[x\]/), R.prop('path')),
+  R.compose((x) => x[1], (e) => R.mapAccum((a, b) => {
+    const transformations = {
+      path: R.replace("[x]", capitalize(b.code)),
+      type: [b]
+    };
+    return [a, R.evolve(transformations, a)];
+  }, e, e.type))
+);
+
+const importStructure = R.compose(
+  R.reduce((a, b) => R.assoc(b.path, b)(a), {}),
+  R.chain(whenPathHasX),
+  R.chain(R.path(['resource', 'snapshot', 'element'])),
   R.filter(schemaItemHasElement),
   R.prop('entry')
-)(schema);
+);
 
 //console.log(searchParameters.entry[0]);
-console.log(searchParamsByType);
+console.log(R.mergeAll([importStructure(profileTypes), importStructure(profileResources)]));
 
 // import express from 'express';
 // import graphqlHTTP from 'express-graphql';
