@@ -75,8 +75,7 @@ const whenPathHasX = R.when(
 );
 
 const importStructure = R.compose(
-  R.assoc('code', structureCode),
-  R.reduce((a, b) => R.assoc(b.path, b)(a), {}),
+  R.reduce((acc, item) => R.assoc(item.path, item, acc), {}),
   R.chain(whenPathHasX),
   R.chain(R.path(['resource', 'snapshot', 'element'])),
   R.filter(schemaItemHasElement),
@@ -301,14 +300,15 @@ const makeSchema = () => {
 function go() {
   const mergedStructures = R.compose(
     addChildren,
+    R.assoc('code', structureCode),
     R.mergeAll
   )([importStructure(profileTypes), importStructure(profileResources)]);
 
 
 
-  const resourcesNames = allResourcesNames(mergedStructures);
+  //const resourcesNames = allResourcesNames(mergedStructures);
 
-  return resourcesNames;
+  return Object.keys(mergedStructures).length;
 }
 
 console.log(go());
