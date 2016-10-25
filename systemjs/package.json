@@ -1,0 +1,22 @@
+{
+  "name": "systemjs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "node builder.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^6.18.0",
+    "babel-plugin-transform-react-jsx": "^6.8.0",
+    "systemjs-builder": "^0.15.33",
+    "systemjs-plugin-babel": "0.0.17"
+  },
+  "dependencies": {
+    "material-ui": "^0.16.1",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2"
+  }
+}
