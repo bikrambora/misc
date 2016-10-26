@@ -11,21 +11,19 @@
         map: {
           react: React
         },
-        transpiler: 'babel-core'
+        transpiler: 'babel'
       });
       // https://cdn.rawgit.com/lucasschejtman/misc/master/systemjs/dist/list@1.js
       // https://cdn.rawgit.com/lucasschejtman/misc/master/systemjs/components/ListComponent.js
       SystemJS
-        .import('https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js')
+        .import('https://cdn.rawgit.com/lucasschejtman/misc/master/systemjs/dist/list@1.js')
         .then(function(module) {
-          console.log(module.map(['a', 'b'], console.log));
+          console.log(module);
         })
-        // .then(function() {
-        //   return SystemJS.import('components/ListComponent.js')
-        //     .then(function(module) {
-        //       console.log(module);
-        //     });
-        // })
+        .then(function() {
+          var module = require('components/ListComponent.js');
+          console.log(module);
+        })
         .catch(function(err) {
           console.log(err);
         });

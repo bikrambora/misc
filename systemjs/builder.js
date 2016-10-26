@@ -14,8 +14,10 @@ builder
     },
     meta: {
       '*.js': {
+        //format: 'es6',
+        // exports: 'pija',
         babelOptions: {
-          es2015: false,
+          es2015: true,
           plugins: [transpileReact]
         }
       },
@@ -27,7 +29,8 @@ builder
   });
 
 builder
-  .bundle('./components/ListComponent.js', './dist/list@1.js')
+  //.bundle('./components/ListComponent.js', './dist/list@1.js')
+  .buildStatic('./components/ListComponent.js', './dist/list@1.js', { format: 'cjs' })
   .then(function() {
     console.log('Build complete');
   })
