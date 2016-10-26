@@ -18,6 +18,9 @@ builder
           es2015: false,
           plugins: [transpileReact]
         }
+      },
+      'react': {
+        build: false
       }
     },
     transpiler: 'plugin-babel'

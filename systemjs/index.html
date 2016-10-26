@@ -1,0 +1,34 @@
+<html>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.2/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.2/react-dom.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/6.1.19/browser.min.js"></script> -->
+  </head>
+  <body>
+    <script src="system.js"></script>
+    <script>
+      SystemJS.config({
+        map: {
+          react: React
+        },
+        transpiler: 'babel-core'
+      });
+      // https://cdn.rawgit.com/lucasschejtman/misc/master/systemjs/dist/list@1.js
+      // https://cdn.rawgit.com/lucasschejtman/misc/master/systemjs/components/ListComponent.js
+      SystemJS
+        .import('https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js')
+        .then(function(module) {
+          console.log(module.map(['a', 'b'], console.log));
+        })
+        // .then(function() {
+        //   return SystemJS.import('components/ListComponent.js')
+        //     .then(function(module) {
+        //       console.log(module);
+        //     });
+        // })
+        .catch(function(err) {
+          console.log(err);
+        });
+    </script>
+  </body>
+</html>
