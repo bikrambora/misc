@@ -1,0 +1,24 @@
+elasticsearch:
+  hostname: elasticsearch
+  image: stabenfeldt/elasticsearch-marvel
+  ports:
+    - "9200:9200"
+    - "9300:9300"
+  volumes:
+    - ./elasticsearch/logging.yml:/etc/elasticsearch/logging.yml
+  restart: always
+
+kibana:
+  image: kibana:4.1
+  container_name: kibana
+  ports:
+    - "5601:5601"
+  links:
+    - elasticsearch:elasticsearch
+
+postgres:
+  image: postgres:9.6
+  hostname: postgres
+  ports:
+    - "5432:5432"
+  restart: always
