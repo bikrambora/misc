@@ -1,0 +1,15 @@
+adium-theme-ubuntu==0.3.4
+chardet==2.3.0
+cycler==0.10.0
+matplotlib==1.5.3
+numpy==1.11.2
+pandas==0.19.1
+Pygments==2.1
+pygobject==3.20.0
+pyparsing==2.1.10
+python-dateutil==2.6.0
+pytz==2016.7
+scipy==0.18.1
+seaborn==0.7.1
+six==1.10.0
+unity-lens-photos==1.0
