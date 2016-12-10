@@ -17,3 +17,21 @@ import * as R from 'ramda';
  *      R.isIn([[42]], [42]); //=> true
  */
 export const isIn = R.flip(R.contains);
+
+/**
+ * Returns the passed element after logging it into the console
+ *
+ * @category Logging
+ * @sig a -> a
+ * @param {Object} object to log
+ * @return {Object} passed object
+ * @example
+ *
+ *      R.compose(
+ *        R.add,
+ *        peek,
+ *        R.add
+ *      )(1); // => returns 3 and console.log(2)
+)
+ */
+export const peek = R.tap(console.log);
