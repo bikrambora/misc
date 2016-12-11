@@ -31,7 +31,26 @@ export const isIn = R.flip(R.contains);
  *        R.add,
  *        peek,
  *        R.add
- *      )(1); // => returns 3 and console.log(2)
+ *      )(1); // => returns 3 and logs '2'
 )
  */
 export const peek = R.tap(console.log);
+
+/**
+ * Returns the passed element after logging it into the console with a message
+ *
+ * @category Logging
+ * @sig a -> a -> a
+ * @param {string} string to preface log
+ * @param {Object} object to log
+ * @return {Object} passed object
+ * @example
+ *
+ *      R.compose(
+ *        R.add,
+ *        trace('after add'),
+ *        R.add
+ *      )(1); // => returns 3 and logs 'after add 2'
+)
+ */
+export const trace = msg => R.tap(x => console.log(msg, x));
