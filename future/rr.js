@@ -28,9 +28,9 @@ export const isIn = R.flip(R.contains);
  * @example
  *
  *      R.compose(
- *        R.add,
+ *        R.inc,
  *        peek,
- *        R.add
+ *        R.inc
  *      )(1); // => returns 3 and logs '2'
 )
  */
@@ -47,10 +47,10 @@ export const peek = R.tap(console.log);
  * @example
  *
  *      R.compose(
- *        R.add,
- *        trace('after add'),
- *        R.add
- *      )(1); // => returns 3 and logs 'after add 2'
+ *        R.inc,
+ *        trace('after inc'),
+ *        R.inc
+ *      )(1); // => returns 3 and logs 'after inc 2'
 )
  */
 export const trace = msg => R.tap(x => console.log(msg, x));
