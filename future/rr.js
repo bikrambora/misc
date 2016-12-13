@@ -54,3 +54,19 @@ export const peek = R.tap(console.log);
 )
  */
 export const trace = msg => R.tap(x => console.log(msg, x));
+
+/**
+ * Returns `true` if the second argument is less than the second; `false` otherwise
+ *
+ * @category Logging
+ * @sig a -> a -> Boolean
+ * @param {Object}
+ * @param {Object}
+ * @return {Boolean}
+ * @example
+ *
+ *  const lowerThanTwo = lowerThan(2);
+ *  lowerThanTwo(3); // => false
+)
+ */
+export const lowerThan = R.flip(R.lt);
