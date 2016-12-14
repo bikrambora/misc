@@ -4,7 +4,6 @@ import * as R from 'ramda';
  * Returns `true` if the specified value is equal, in `R.equals` terms, to at
  * least one element of the given list; `false` otherwise.
  *
- * @category List
  * @sig [a] -> a -> Boolean
  * @param {Array} list The array to consider.
  * @param {Object} a The item to compare against.
@@ -21,7 +20,6 @@ export const isIn = R.flip(R.contains);
 /**
  * Returns the passed element after logging it into the console
  *
- * @category Logging
  * @sig a -> a
  * @param {Object} object to log
  * @return {Object} passed object
@@ -39,7 +37,6 @@ export const peek = R.tap(console.log);
 /**
  * Returns the passed element after logging it into the console with a message
  *
- * @category Logging
  * @sig a -> a -> a
  * @param {string} string to preface log
  * @param {Object} object to log
@@ -58,15 +55,29 @@ export const trace = msg => R.tap(x => console.log(msg, x));
 /**
  * Returns `true` if the second argument is less than the second; `false` otherwise
  *
- * @category Logging
  * @sig a -> a -> Boolean
  * @param {Object}
  * @param {Object}
  * @return {Boolean}
  * @example
  *
- *  const lowerThanTwo = lowerThan(2);
- *  lowerThanTwo(3); // => false
+ *  const lessThanTwo = lessThan(2);
+ *  lessThanTwo(3); // => false
 )
  */
-export const lowerThan = R.flip(R.lt);
+export const lessThan = R.flip(R.lt);
+
+/**
+ * Returns `true` if the second argument is greater than the second; `false` otherwise
+ *
+ * @sig a -> a -> Boolean
+ * @param {Object}
+ * @param {Object}
+ * @return {Boolean}
+ * @example
+ *
+ *  const greaterThanTwo = greaterThan(2);
+ *  greaterThanTwo(3); // => true
+)
+ */
+export const greaterThan = R.flip(R.lt);
