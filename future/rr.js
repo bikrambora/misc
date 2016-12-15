@@ -80,4 +80,4 @@ export const lessThan = R.flip(R.lt);
  *  greaterThanTwo(3); // => true
 )
  */
-export const greaterThan = R.flip(R.lt);
+export const greaterThan = R.flip(R.gt);
