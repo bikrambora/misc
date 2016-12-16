@@ -1,4 +1,4 @@
-import * as R from 'ramda';
+import R from 'ramda';
 
 /**
  * Returns `true` if the specified value is equal, in `R.equals` terms, to at
@@ -81,3 +81,17 @@ export const lessThan = R.flip(R.lt);
 )
  */
 export const greaterThan = R.flip(R.gt);
+
+/**
+ * Returns trims and slugifies the target string
+ *
+ * @sig String -> Boolean
+ * @param {String}
+ * @return {String}
+ * @example
+ *
+ *  const str = ' g a a ';
+ *  slugify(str); // => 'g-a-a'
+)
+ */
+export const slugify = R.compose(R.replace(/ /g, '-'), R.trim);
