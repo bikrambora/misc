@@ -85,7 +85,7 @@ export const greaterThan = R.flip(R.gt);
 /**
  * Returns trims and slugifies the target string
  *
- * @sig String -> Boolean
+ * @sig String -> String
  * @param {String}
  * @return {String}
  * @example
@@ -95,3 +95,17 @@ export const greaterThan = R.flip(R.gt);
 )
  */
 export const slugify = R.compose(R.replace(/ /g, '-'), R.trim);
+
+/**
+ * Returns a capitalized version of the passed string
+ *
+ * @sig String -> String
+ * @param {String}
+ * @return {String}
+ * @example
+ *
+ *  const str = 'abc';
+ *  capitalize(str); // => 'Abc'
+)
+ */
+export const capitalize = compose(R.join(''), R.over(R.lensIndex(0), R.toUpper));
