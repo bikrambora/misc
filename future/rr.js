@@ -109,3 +109,19 @@ export const slugify = R.compose(R.replace(/ /g, '-'), R.trim);
 )
  */
 export const capitalize = compose(R.join(''), R.over(R.lensIndex(0), R.toUpper));
+
+/**
+ * Returns a snakeCased version of the passed string
+ *
+ * @sig String|[String] -> String
+ * @param {String|[String]}
+ * @return {String}
+ * @example
+ *
+ *  const str = 'a b c';
+ *  snakeCase(str); // => 'a_b_c'
+ *  const arr = ['a', 'b', 'c'];
+ *  snakeCase(arr); // => 'a_b_c'
+)
+ */
+export const snakeCase = R.compose(R.join('_'), R.map(R.toLower), R.when(R.is(String), R.split(' ')));
