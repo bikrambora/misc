@@ -125,3 +125,19 @@ export const capitalize = compose(R.join(''), R.over(R.lensIndex(0), R.toUpper))
 )
  */
 export const snakeCase = R.compose(R.join('_'), R.map(R.toLower), R.when(R.is(String), R.split(' ')));
+
+/**
+ * Returns a pascalCased version of the passed string
+ *
+ * @sig String|[String] -> String
+ * @param {String|[String]}
+ * @return {String}
+ * @example
+ *
+ *  const str = 'ab cd ef';
+ *  snakeCase(str); // => 'AbCdEf'
+ *  const arr = ['ab', 'cd', 'ef'];
+ *  snakeCase(arr); // => 'AbCdEf'
+)
+ */
+export const pascalCase = R.compose(R.join(''), R.map(R.compose(capitalize, R.toLower)), R.when(R.is(String), R.split(' ')));
