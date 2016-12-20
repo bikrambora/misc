@@ -111,6 +111,20 @@ export const slugify = R.compose(R.replace(/ /g, '-'), R.trim);
 export const capitalize = compose(R.join(''), R.over(R.lensIndex(0), R.toUpper));
 
 /**
+ * Returns a decapitalized version of the passed string
+ *
+ * @sig String -> String
+ * @param {String}
+ * @return {String}
+ * @example
+ *
+ *  const str = 'Abc';
+ *  decapitalize(str); // => 'abc'
+)
+ */
+export const decapitalize = compose(R.join(''), R.over(R.lensIndex(0), R.toLower));
+
+/**
  * Returns a snakeCased version of the passed string
  *
  * @sig String|[String] -> String
