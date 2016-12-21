@@ -149,9 +149,25 @@ export const snakeCase = R.compose(R.join('_'), R.map(R.toLower), R.when(R.is(St
  * @example
  *
  *  const str = 'ab cd ef';
- *  snakeCase(str); // => 'AbCdEf'
+ *  pascalCase(str); // => 'AbCdEf'
  *  const arr = ['ab', 'cd', 'ef'];
- *  snakeCase(arr); // => 'AbCdEf'
+ *  pascalCase(arr); // => 'AbCdEf'
 )
  */
 export const pascalCase = R.compose(R.join(''), R.map(R.compose(capitalize, R.toLower)), R.when(R.is(String), R.split(' ')));
+
+/**
+ * Returns a camelCased version of the passed string
+ *
+ * @sig String|[String] -> String
+ * @param {String|[String]}
+ * @return {String}
+ * @example
+ *
+ *  const str = 'ab cd ef';
+ *  camelCase(str); // => 'abCdEf'
+ *  const arr = ['ab', 'cd', 'ef'];
+ *  camelCase(arr); // => 'abCdEf'
+)
+ */
+export const camelCase = R.compose(decapitalize, R.join(''), R.map(R.compose(capitalize, R.toLower)), R.when(R.is(String), R.split(' ')));
