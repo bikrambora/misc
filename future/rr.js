@@ -171,3 +171,19 @@ export const pascalCase = R.compose(R.join(''), R.map(R.compose(capitalize, R.to
 )
  */
 export const camelCase = R.compose(decapitalize, R.join(''), R.map(R.compose(capitalize, R.toLower)), R.when(R.is(String), R.split(' ')));
+
+/**
+ * Returns a kebabCased version of the passed string
+ *
+ * @sig String|[String] -> String
+ * @param {String|[String]}
+ * @return {String}
+ * @example
+ *
+ *  const str = 'a b c';
+ *  kebabCase(str); // => 'a-b-c'
+ *  const arr = ['a', 'b', 'c'];
+ *  kebabCase(arr); // => 'a-b-c'
+)
+ */
+export const kebabCase = R.compose(R.join('-'), R.map(R.toLower), R.when(R.is(String), R.split(' ')));
