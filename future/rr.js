@@ -187,3 +187,18 @@ export const camelCase = R.compose(decapitalize, R.join(''), R.map(R.compose(cap
 )
  */
 export const kebabCase = R.compose(R.join('-'), R.map(R.toLower), R.when(R.is(String), R.split(' ')));
+
+/**
+ * Inserts a character at the specified index
+ *
+ * @sig Number -> String -> String
+ * @param {Number}
+ * @param {String}
+ * @return {String}
+ * @example
+ *
+ *  const str = 'abcde';
+ *  insertAt(2, 'x', str); // => 'abxcde'
+)
+ */
+export const insertAt = (at, char, str) => R.compose(R.join(''), R.insert(at, char))(str);
