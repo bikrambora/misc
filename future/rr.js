@@ -201,4 +201,4 @@ export const kebabCase = R.compose(R.join('-'), R.map(R.toLower), R.when(R.is(St
  *  insertAt(2, 'x', str); // => 'abxcde'
 )
  */
-export const insertAt = (at, char, str) => R.compose(R.join(''), R.insert(at, char))(str);
+export const insertAt = R.curry((at, char, str) => R.compose(R.join(''), R.insert(at, char))(str));
