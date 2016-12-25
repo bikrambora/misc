@@ -202,3 +202,24 @@ export const kebabCase = R.compose(R.join('-'), R.map(R.toLower), R.when(R.is(St
 )
  */
 export const insertAt = R.curry((at, char, str) => R.compose(R.join(''), R.insert(at, char))(str));
+
+/**
+ * Transforms a query string into an object
+ *
+ * @sig String -> Object
+ * @param {String}
+ * @return {Object}
+ * @example
+ *
+ *  const str = '?a=value&b=another'; // or window.location.search
+ *  queryToObj(str); // => {"a": "value", "b": "another"}
+)
+ */
+export const queryToObj = R.compose(
+  R.map(window.decodeURIComponent),
+  R.pickBy((v, k) => k !== ''),
+  R.fromPairs,
+  R.map(R.split('=')),
+  R.split('&'),
+  R.replace(/^\?/, '')
+);
