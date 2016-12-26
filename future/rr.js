@@ -212,14 +212,34 @@ export const insertAt = R.curry((at, char, str) => R.compose(R.join(''), R.inser
  * @example
  *
  *  const str = '?a=value&b=another'; // or window.location.search
- *  queryToObj(str); // => {"a": "value", "b": "another"}
+ *  queryStringToObject(str); // => {"a": "value", "b": "another"}
 )
  */
-export const queryToObj = R.compose(
-  R.map(window.decodeURIComponent),
+export const queryStringToObject = R.compose(
+  R.map(decodeURIComponent),
   R.pickBy((v, k) => k !== ''),
   R.fromPairs,
   R.map(R.split('=')),
   R.split('&'),
   R.replace(/^\?/, '')
+);
+
+/**
+ * Transforms an object's top level properties into a query string
+ *
+ * @sig Object -> String
+ * @param {Object}
+ * @return {String}
+ * @example
+ *
+ *  const obj = {"a": "value", "b": "another"};
+ *  objectToQueryString(obj); // => ?a=value&b=another
+)
+ */
+export const objectToQueryString = R.compose(
+  R.replace(/(^.+$)/, '?$1'),
+  R.join('&'),
+  R.map(R.join('=')),
+  R.toPairs,
+  R.map(encodeURIComponent)
 );
