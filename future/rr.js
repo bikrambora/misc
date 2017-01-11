@@ -243,3 +243,15 @@ export const objectToQueryString = R.compose(
   R.toPairs,
   R.map(encodeURIComponent)
 );
+
+/**
+ * Returns the maximum element of the given array
+ *
+ * @sig [a] -> a
+ * @param {Array<T>}
+ * @return {T}
+ *
+ * maximum([1,3,2]); // => 3
+ * maximum("cba"); // => "c"
+ */
+export const maximum = R.reduce(R.max, []);
