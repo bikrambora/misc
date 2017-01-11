@@ -18,14 +18,12 @@ mkdir -p countries
 echo "Downloading country specific data"
 for i in "${countries[@]}"
 do
-  #wget -O ./countries/$i.json 'http://api.meetup.com/2/cities?&sign=true&photo-host=public&country='$i
+  wget -O ./countries/$i.json 'http://api.meetup.com/2/cities?&sign=true&photo-host=public&country='$i
   echo $i
 done
 
 # Data format - [lat, lon, magnitude, lat, lon, magnitude ...]
-jq -s '. | [.[].results[] | .lat, .lon, .member_count]' ./countries/*.json > data.json
-
-#elevation format
-#jq -s . ./countries/*.json | { echo 'var data = '; jq '[.[].results[] | [.member_count, .lat, .lon]]'; echo ';' } > data.json
+# magnitude done over 100k, too big otherwise
+jq -s '. | [.[].results[] | select(.member_count > 0) | .lat, .lon, .member_count / 100000]' ./countries/*.json > data.json
 
 echo "All done"
