@@ -255,3 +255,15 @@ export const objectToQueryString = R.compose(
  * maximum("cba"); // => "c"
  */
 export const maximum = R.reduce(R.max, []);
+
+/**
+ * Returns the minimum element of the given array
+ *
+ * @sig [a] -> a
+ * @param {Array<T>}
+ * @return {T}
+ *
+ * minimum([1,3,2]); // => 1
+ * minimum("cba"); // => "a"
+ */
+export const minimum = R.reduce(R.flip(R.min), Infinity);
