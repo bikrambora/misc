@@ -267,3 +267,15 @@ export const maximum = R.reduce(R.max, []);
  * minimum("cba"); // => "a"
  */
 export const minimum = R.reduce(R.flip(R.min), Infinity);
+
+/**
+ * Returns the absolute value for each element of the given array
+ *
+ * @sig [a] -> [a]
+ * @param {[Int]}
+ * @return {[Int]}
+ *
+ * absolute([1,3,2]); // => [1,3,2]
+ * absolute([-1,-3,-2]); // => [1,3,2]
+ */
+export const absolute = R.map(Math.abs);
