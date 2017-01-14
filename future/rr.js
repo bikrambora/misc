@@ -279,3 +279,15 @@ export const minimum = R.reduce(R.flip(R.min), Infinity);
  * absolute([-1,-3,-2]); // => [1,3,2]
  */
 export const absolute = R.map(Math.abs);
+
+/**
+ * Returns the square root of the sum of squares of the given array
+ *
+ * @sig [a] -> a
+ * @param {[Int]}
+ * @return {Int}
+ *
+ * hypot([3,4]); // => 5
+ * hypot([3,4,5]); // => 7.0710678118654755
+ */
+export const hypot = R.compose(Math.sqrt, R.sum, R.map(x => x * x));
