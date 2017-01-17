@@ -295,9 +295,9 @@ export const hypot = R.compose(Math.sqrt, R.sum, R.map(x => x * x));
 /**
  * Not to be taken seriously
  */
-const leftPad = R.curry((ch, num, str) => R.compose(R.join(''), R.append(str), R.repeat(ch))(num - str.length));
+export const leftPad = R.curry((ch, num, str) => R.compose(R.join(''), R.append(str), R.repeat(ch))(num - str.length));
 
 /**
  * Not to be taken seriously
  */
-const rightPad = R.curry((ch, num, str) => R.compose(R.join(''), R.prepend(str), R.repeat(ch))(num - str.length));
+export const rightPad = R.curry((ch, num, str) => R.compose(R.join(''), R.prepend(str), R.repeat(ch))(num - str.length));
