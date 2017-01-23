@@ -243,3 +243,61 @@ export const objectToQueryString = R.compose(
   R.toPairs,
   R.map(encodeURIComponent)
 );
+
+/**
+ * Returns the maximum element of the given array
+ *
+ * @sig [a] -> a
+ * @param {Array<T>}
+ * @return {T}
+ *
+ * maximum([1,3,2]); // => 3
+ * maximum("cba"); // => "c"
+ */
+export const maximum = R.reduce(R.max, []);
+
+/**
+ * Returns the minimum element of the given array
+ *
+ * @sig [a] -> a
+ * @param {Array<T>}
+ * @return {T}
+ *
+ * minimum([1,3,2]); // => 1
+ * minimum("cba"); // => "a"
+ */
+export const minimum = R.reduce(R.flip(R.min), Infinity);
+
+/**
+ * Returns the absolute value for each element of the given array
+ *
+ * @sig [a] -> [a]
+ * @param {[Int]}
+ * @return {[Int]}
+ *
+ * absolute([1,3,2]); // => [1,3,2]
+ * absolute([-1,-3,-2]); // => [1,3,2]
+ */
+export const absolute = R.map(Math.abs);
+
+/**
+ * Returns the square root of the sum of squares of the given array
+ *
+ * @sig [a] -> a
+ * @param {[Int]}
+ * @return {Int}
+ *
+ * hypot([3,4]); // => 5
+ * hypot([3,4,5]); // => 7.0710678118654755
+ */
+export const hypot = R.compose(Math.sqrt, R.sum, R.map(x => x * x));
+
+/**
+ * Not to be taken seriously
+ */
+export const leftPad = R.curry((ch, num, str) => R.compose(R.join(''), R.append(str), R.repeat(ch))(num - str.length));
+
+/**
+ * Not to be taken seriously
+ */
+export const rightPad = R.curry((ch, num, str) => R.compose(R.join(''), R.prepend(str), R.repeat(ch))(num - str.length));
