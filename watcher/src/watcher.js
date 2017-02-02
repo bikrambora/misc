@@ -11,10 +11,11 @@ const parseXml = (path: string, evt) : void => {
     console.log(evt);
 };
 
-const pathToGlob = (location: string) : string => R.converge(path.join,
+const pathToGlob = (location: string) : string => R.converge(path.join, [
+    path.dirname,
     /* $FlowIgnore: 'over' and 'lensIndex' not included in declaration */
-    [path.dirname, R.compose(R.join(''), R.over(R.lensIndex(0), e => `[${e}]`), filenameFromPath)]
-)(location);
+    R.compose(R.join(''), R.over(R.lensIndex(0), e => `[${e}]`), filenameFromPath)
+])(location);
 
 const startMonitor = (file: string) : void => chokidar.watch(file, { ignored: /(^|[\/\\])\../, persistent: true, cwd: '.' }).on('change', parseXml);
 
