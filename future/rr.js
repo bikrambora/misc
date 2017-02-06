@@ -124,7 +124,8 @@ export const capitalize = R.compose(R.join(''), R.zipWith(R.call, [R.toUpper, R.
  *  decapitalize(str); // => 'abc'
 )
  */
-export const decapitalize = compose(R.join(''), R.over(R.lensIndex(0), R.toLower));
+export const decapitalize = R.compose(R.join(''), R.over(R.lensIndex(0), R.toLower));
+export const decapitalize = R.compose(R.join(''), R.adjust(R.toLower, 0));
 
 /**
  * Returns a snakeCased version of the passed string
