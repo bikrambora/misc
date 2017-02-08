@@ -304,3 +304,8 @@ export const leftPad = R.curry((ch, num, str) => R.compose(R.join(''), R.append(
  * Not to be taken seriously
  */
 export const rightPad = R.curry((ch, num, str) => R.compose(R.join(''), R.prepend(str), R.repeat(ch))(num - str.length));
+
+/**
+ * Not to be taken seriously
+ */
+ export const wipeKeys = R.chain(R.omit, R.keys);
