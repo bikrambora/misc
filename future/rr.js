@@ -295,28 +295,3 @@ export const absolute = R.map(Math.abs);
  * hypot([3,4,5]); // => 7.0710678118654755
  */
 export const hypot = R.compose(Math.sqrt, R.sum, R.map(x => x * x));
-
-/**
- * Not to be taken seriously
- */
-export const leftPad = R.curry((ch, num, str) => R.compose(R.join(''), R.append(str), R.repeat(ch))(num - str.length));
-
-/**
- * Not to be taken seriously
- */
-export const rightPad = R.curry((ch, num, str) => R.compose(R.join(''), R.prepend(str), R.repeat(ch))(num - str.length));
-
-/**
- * Not to be taken seriously
- */
-export const wipeKeys = R.chain(R.omit, R.keys);
-
-/**
- * Not to be taken seriously
- */
-export const allValues = R.chain(R.assoc('values'), R.values);
-
-/**
- * Not to be taken seriously
- */
-export const fn = R.compose(R.map, R.zipWith(R.call));
