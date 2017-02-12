@@ -22,3 +22,8 @@ export const allValues = R.chain(R.assoc('values'), R.values);
  * Not to be taken seriously
  */
 export const fn = R.compose(R.map, R.zipWith(R.call));
+
+/**
+ * Not to be taken seriously
+ */
+export const betterLog = arr => arr.map(R.unary(console.log));
