@@ -27,3 +27,13 @@ export const fn = R.compose(R.map, R.zipWith(R.call));
  * Not to be taken seriously
  */
 export const betterLog = arr => arr.map(R.unary(console.log));
+
+/**
+ * Not to be taken seriously
+ * https://goo.gl/T0CnZ2
+ */
+const saveEmployee = compose(
+  R.converge(R.uncurryN(2,setCache), [R.path(['id']), R.identity]),
+  R.assoc('role', 'developer'),
+  R.path(['employee'])
+);
