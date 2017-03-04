@@ -51,7 +51,7 @@ const pushPatientInContext = R.composeP(sendFhirPatient, createFhirPatient, R.pa
 const pathToGlob = (location: string) : string => R.converge(path.join,
     /* $FlowIgnore: 'over' and 'lensIndex' not included in declaration */
     R.compose(R.join(''), R.over(R.lensIndex(0), e => `[${e}]`), filenameFromPath)
-])(location);
+)(location);
 
 const startMonitor = (file: string) : void => chokidar.watch(file, { ignored: /(^|[\/\\])\../, persistent: true, cwd: '.' }).on('change', pushPatientInContext);
 
