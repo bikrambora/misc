@@ -33,7 +33,9 @@ export const betterLog = arr => arr.map(R.unary(console.log));
  * https://goo.gl/T0CnZ2
  */
 const saveEmployee = compose(
-  R.converge(R.uncurryN(2,setCache), [R.path(['id']), R.identity]),
+  R.chain(setCache, R.path(['id'])),
+  // another option
+  // R.converge(R.uncurryN(2,setCache), [R.path(['id']), R.identity]),
   R.assoc('role', 'developer'),
   R.path(['employee'])
 );
