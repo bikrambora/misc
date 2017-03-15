@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start:fetcher": "node index.js",
+    "start:database": ""
   },
   "author": "",
   "license": "ISC",
