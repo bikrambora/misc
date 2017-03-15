@@ -20,6 +20,11 @@ export const allValues = R.chain(R.assoc('values'), R.values);
 
 /**
  * Not to be taken seriously
+    const pairs = [["murray", "software.developer"], ["cole", "software.developer"], ["lucas", "architect"]];
+    const fn = <TODO>;
+    const result = fn([leftFn, rightFn]);
+    result(pairs);
+    // => [[leftFn("murray"), rightFn("software.developer")], [leftFn("cole"), rightFn("software.developer")], [leftFn("lucas"), rightFn("architect")]]
  */
 export const fn = R.compose(R.map, R.zipWith(R.call));
 
