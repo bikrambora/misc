@@ -1,10 +1,8 @@
 const R = require('ramda');
-const future = require('fluture');
+const Future = require('fluture');
 const request = require('request');
 const semver = require('semver');
 const semverUtils = require('semver-utils');
-
-const createRow = R.curry((name, version, type, dep, depVersion) => `${name}, ${version}, ${type}, ${dep}, ${depVersion}, ${versionToRange(depVersion)}`);
 
 const pkg = {
   "name": "ohw-svg",
@@ -31,15 +29,27 @@ const pkg = {
   }
 };
 
+const packages = [
+    'ohw-svg',
+    'ohw-svg'
+];
+
 const peek = R.tap(console.log);
 const propToPairs = R.curry((name, obj) => R.compose(R.toPairs, R.prop(name))(obj));
 const pairsToRows = R.curry((row, pairs) => R.map(arr => row(arr[0], arr[1]))(pairs));
-const objToRows = R.curry((prop, row, obj) => R.compose(pairsToRows(row), propToPairs(prop))(obj));
+const objToRows   = R.curry((prop, row, obj) => R.compose(pairsToRows(row), propToPairs(prop))(obj));
+const pkgUrl      = R.curry((repo) => ({ uri:`https://stash/projects/OHW/repos/${repo}/browse/package.json?raw`, rejectUnauthorized: false }));
+const createRow   = R.curry((name, version, type, dep, depVersion) => `${name}, ${version}, ${type}, ${dep}, ${depVersion}, ${versionToRange(depVersion)}`);
 
 const versionToRange = (version) => {
     const range = semverUtils.parseRange(version)[0];
     return range ? `${R.join(',', [range.major, range.minor, range.patch])}, ${range.operator ? range.operator : 'fixed'}` : `any, *`;
 };
+
+const fetch = (opts) => Future((rej, res) => void request(opts, (err, response, body) => {
+    if(err) return rej(err);
+    return res(body);
+}));
 
 const createAppCsv = (pJson) => {
   const nameAndVersionRow = createRow(pJson.name, pJson.version);
@@ -48,4 +58,11 @@ const createAppCsv = (pJson) => {
   return R.converge(R.concat, [dependenciesRows, devDependenciesRows])(pJson);
 };
 
-console.log(createAppCsv(pkg));
+const fetchPackages = R.compose(R.map(fetch), R.map(pkgUrl))(packages);
+
+const allRows = Future.parallel(5, fetchPackages)
+                .chain(Future.encase(R.map(JSON.parse)))
+                .fork(console.log, R.compose(peek, R.map(createAppCsv)));
+//a.fork(console.log, createAppCsv)
+
+console.log(allRows);
