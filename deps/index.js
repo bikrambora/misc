@@ -35,11 +35,12 @@ const packages = [
 ];
 
 const peek = R.tap(console.log);
-const propToPairs = R.curry((name, obj) => R.compose(R.toPairs, R.prop(name))(obj));
-const pairsToRows = R.curry((row, pairs) => R.map(arr => row(arr[0], arr[1]))(pairs));
-const objToRows   = R.curry((prop, row, obj) => R.compose(pairsToRows(row), propToPairs(prop))(obj));
-const pkgUrl      = R.curry((repo) => ({ uri:`https://stash/projects/OHW/repos/${repo}/browse/package.json?raw`, rejectUnauthorized: false }));
-const createRow   = R.curry((name, version, type, dep, depVersion) => `${name}, ${version}, ${type}, ${dep}, ${depVersion}, ${versionToRange(depVersion)}`);
+const propToPairs   = R.curry((name, obj) => R.compose(R.toPairs, R.prop(name))(obj));
+const pairsToRows   = R.curry((row, pairs) => R.map(arr => row(arr[0], arr[1]))(pairs));
+const objToRows     = R.curry((prop, row, obj) => R.compose(pairsToRows(row), propToPairs(prop))(obj));
+const pkgUrl        = R.curry((repo) => ({ uri:`https://stash/projects/OHW/repos/${repo}/browse/package.json?raw`, rejectUnauthorized: false }));
+const createRow     = R.curry((name, version, type, dep, depVersion) => `${name}, ${version}, ${type}, ${dep}, ${depVersion}, ${versionToRange(depVersion)}`);
+const fetchPackages = R.compose(R.map(fetch), R.map(pkgUrl))(packages);
 
 const versionToRange = (version) => {
     const range = semverUtils.parseRange(version)[0];
@@ -58,11 +59,6 @@ const createAppCsv = (pJson) => {
   return R.converge(R.concat, [dependenciesRows, devDependenciesRows])(pJson);
 };
 
-const fetchPackages = R.compose(R.map(fetch), R.map(pkgUrl))(packages);
-
-const allRows = Future.parallel(5, fetchPackages)
-                .chain(Future.encase(R.map(JSON.parse)))
-                .fork(console.log, R.compose(peek, R.map(createAppCsv)));
-//a.fork(console.log, createAppCsv)
-
-console.log(allRows);
+Future.parallel(Infinity, fetchPackages)
+    .chain(Future.encase(R.map(JSON.parse)))
+    .fork(console.log, R.compose(peek, R.map(createAppCsv)));
