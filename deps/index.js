@@ -38,6 +38,6 @@ const createAppCsv = (pJson) => {
     return R.converge(R.concat, [dependenciesRows, devDependenciesRows])(pJson);
 };
 
-Future.parallel(Infinity, fetchPackages)
+Future.parallel(5, fetchPackages)
     .chain(Future.encase(R.map(JSON.parse)))
     .fork(console.log, R.compose(writeFile('./alldeps.csv'), R.join('\n'), R.prepend(header), R.flatten, R.map(createAppCsv)));
