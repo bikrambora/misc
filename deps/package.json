@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start:fetcher": "node index.js",
-    "start:database": ""
+    "start:database": ". ./neo4j.sh"
+  },
+  "engines": {
+    "node": ">=7.0.0"
   },
   "author": "",
   "license": "ISC",
