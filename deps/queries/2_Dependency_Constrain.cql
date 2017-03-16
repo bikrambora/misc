@@ -1,0 +1,1 @@
+CREATE CONSTRAINT ON (d:Dependency) ASSERT d.hash IS UNIQUE;

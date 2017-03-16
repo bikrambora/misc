@@ -1,0 +1,1 @@
+CREATE CONSTRAINT ON (p:Project) ASSERT p.hash IS UNIQUE;
