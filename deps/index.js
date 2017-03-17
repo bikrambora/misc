@@ -7,28 +7,7 @@ const semver = require('semver-utils');
 
 const header = 'name,version,type,dependency,depversion,depversionclean,depversionoperator';
 const packages = [
-    'ohw-allergy-intolerance-card',
-    'ohw-chat-component',
-    'ohw-clinical-patient-panel',
-    'ohw-clinical-quick-comments',
-    'ohw-condition-card',
-    'ohw-dashboard',
-    'ohw-document-lister',
-    'ohw-encounters-card',
-    'ohw-fhir-utils',
-    'ohw-filterable-list',
-    'ohw-medication-order-card',
-    'ohw-message-component',
-    'ohw-pathways',
-    'ohw-patient-banner',
-    'ohw-patient-lab-results',
-    'ohw-patient-medications',
-    'ohw-procedures-card',
-    'ohw-redux-notifications',
-    'ohw-redux-provide-patient',
-    'ohw-redux-store',
-    'ohw-shared-redux-store',
-    'ohw-svg'
+    'array of packages'
 ];
 
 const fetch = (opts) => Future((rej, res) => void request(opts, (err, response, body) => {
@@ -40,7 +19,7 @@ const writeFile     = R.curry((file, contents) => fs.writeFileSync(file, content
 const propToPairs   = R.curry((name, obj) => R.compose(R.toPairs, R.prop(name))(obj));
 const pairsToRows   = R.curry((row, pairs) => R.map(arr => row(arr[0], arr[1]))(pairs));
 const objToRows     = R.curry((prop, row, obj) => R.compose(pairsToRows(row), propToPairs(prop))(obj));
-const pkgUrl        = R.curry((repo) => ({ uri:`https://stash/projects/OHW/repos/${repo}/browse/package.json?raw`, rejectUnauthorized: false }));
+const pkgUrl        = R.curry((repo) => ({ uri:`repository url`, rejectUnauthorized: false }));
 const createRow     = R.curry((name, version, type, dep, depVersion) => `${name},${version},${type},${dep},${depVersion},${versionToRange(depVersion)}`);
 const fetchPackages = R.compose(R.map(fetch), R.map(pkgUrl));
 
