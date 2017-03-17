@@ -2,7 +2,7 @@
 // All projects that depend on a specific library //
 ////////////////////////////////////////////////////
 MATCH (d:Dependency)<-[r:DEPENDS_ON]-(p:Project)
-WHERE d.name contains "<library_name>"
+WHERE d.name contains "jquery"
 RETURN *
 
 ///////////////////////////////////////////////////
