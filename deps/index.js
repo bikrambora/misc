@@ -15,6 +15,7 @@ const fetch = (opts) => Future((rej, res) => void request(opts, (err, response, 
     return res(body);
 }));
 
+const logError      = console.error;
 const writeFile     = R.curry((file, contents) => fs.writeFileSync(file, contents));
 const propToPairs   = R.curry((name, obj) => R.compose(R.toPairs, R.prop(name))(obj));
 const pairsToRows   = R.curry((row, pairs) => R.map(arr => row(arr[0], arr[1]))(pairs));
@@ -37,6 +38,12 @@ const createAppCsv = (pJson) => {
     return R.converge(R.concat, [dependenciesRows, devDependenciesRows])(pJson);
 };
 
-Future.parallel(5, fetchPackages(packages))
-    .chain(Future.encase(R.map(JSON.parse)))
-    .fork(console.log, R.compose(writeFile('./csv/alldeps.csv'), R.join('\n'), R.prepend(header), R.flatten, R.map(createAppCsv)));
+const fetchSuccess = R.compose(
+  writeFile('./csv/alldeps.csv'),
+  R.join('\n'),
+  R.prepend(header),
+  R.flatten,
+  R.map(createAppCsv)
+);
+
+Future.parallel(5, fetchPackages(packages)).chain(Future.encase(R.map(JSON.parse))).fork(logError, fetchSuccess);
