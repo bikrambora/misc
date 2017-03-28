@@ -1,14 +1,17 @@
 {
-    "name": "generator-shell",
-    "version": "0.1.0",
-    "description": "",
-    "files": [
-        "app"
-    ],
-    "keywords": [
-        "yeoman-generator"
-    ],
-    "dependencies": {
-        "yeoman-generator": "^1.0.0"
-    }
+  "name": "generator-shell",
+  "version": "0.1.0",
+  "description": "dummy generator",
+  "files": [
+    "app"
+  ],
+  "keywords": [
+    "yeoman-generator"
+  ],
+  "dependencies": {
+    "yeoman-generator": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/yeoman-generator": "^1.0.1"
+  }
 }
