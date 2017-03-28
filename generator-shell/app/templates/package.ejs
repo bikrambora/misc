@@ -1,0 +1,9 @@
+{
+    "name": "<%= prompts.name %>",
+    "version": "0.1.0",
+    "description": "<%= prompts.description %>",
+    "dependencies": {
+        "fs": "*"
+        <% if(prompts.deps.includes('redux')) { %>,"redux": "*"<% } %>
+    }
+}
