@@ -29,9 +29,13 @@ class AppGenerator extends Generator {
     }
 
     writing() {
+        this.fs.copy(
+            this.templatePath('scaffold/**'),
+            this.destinationPath(`${this.prompts.name}/`)
+        );
         this.fs.copyTpl(
             this.templatePath('package.ejs'),
-            this.destinationPath('package.json'),
+            this.destinationPath(`${this.prompts.name}/package.json`),
             {
                 prompts: this.prompts
             }
@@ -39,13 +43,7 @@ class AppGenerator extends Generator {
     }
 
     install() {
-        this.installDependencies(
-            {
-                npm: true,
-                bower: false,
-                yarn: false
-            }
-        );
+        this.npmInstall(null, null, null, { cwd: `./${this.prompts.name}/` });
     }
 }
 
