@@ -20,6 +20,11 @@ class AppGenerator extends Generator {
                 default: 'awesome piece of react'
             },
             {
+                type: 'input',
+                name: 'repository',
+                message: 'Your component repository'
+            },
+            {
                 type: 'checkbox',
                 name: 'deps',
                 message: 'Select extra dependencies',
