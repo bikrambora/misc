@@ -2,6 +2,14 @@
     "name": "<%= prompts.name %>",
     "version": "0.1.0",
     "description": "<%= prompts.description %>",
+    "author": {
+        "name": "Orchestral Developments Ltd."
+    },
+    "license": "SEE LICENSE IN LICENSE",
+    "repository": {
+        "type": "git",
+        "url": "<%= "ssh://git@stash:7999/" + prompts.repository + ".git" %>"
+    },
     "dependencies": {
         "fs": "*"
         <% if(prompts.deps.includes('redux')) { %>,"redux": "*"<% } %>
