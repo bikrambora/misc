@@ -35,8 +35,9 @@ class AppGenerator extends Generator {
 
     writing() {
         this.fs.copy(
-            this.templatePath('scaffold/**'),
-            this.destinationPath(`${this.prompts.name}/`)
+            this.templatePath('scaffold/+(**|.*)'),
+            this.destinationPath(`${this.prompts.name}/`),
+            { dot: true }
         );
         this.fs.copyTpl(
             this.templatePath('package.ejs'),
