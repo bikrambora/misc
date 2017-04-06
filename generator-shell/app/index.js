@@ -21,6 +21,12 @@ class AppGenerator extends Generator {
             },
             {
                 type: 'input',
+                name: 'version',
+                message: 'Your component version',
+                default: '0.1.0'
+            },
+            {
+                type: 'input',
                 name: 'repository',
                 message: 'Your component repository'
             },
