@@ -41,7 +41,7 @@ class AppGenerator extends Generator {
 
     writing() {
         this.fs.copy(
-            this.templatePath('scaffold/+(**|.*)'),
+            this.templatePath('scaffold/**/+(**|.*)'),
             this.destinationPath(`${this.prompts.name}/`),
             { dot: true }
         );
