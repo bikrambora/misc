@@ -8,7 +8,9 @@
     "allowJs": true,
     "importHelpers": true,
     "noUnusedLocals": true,
-    "noUnusedParameters": true
+    "noUnusedParameters": true,
+    "sourceMap": true,
+    "outDir": "dev"
   },
   "include": [
     "src/**/*",
