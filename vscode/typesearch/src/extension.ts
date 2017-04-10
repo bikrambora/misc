@@ -20,9 +20,8 @@ interface RawTypeDefinition {
 
 const placeHolder = 'Search for Types Packages';
 
-function onTypeSelected(selected) {
-    const item = selected as QuickItem;
-    console.log(item);
+function onTypeSelected(selected: QuickItem) {
+    console.log(selected);
 }
 
 function typesToItems(types: RawTypeDefinition[]) : QuickItem[] {
@@ -41,6 +40,7 @@ async function onCommand() {
 }
 
 export function activate(context: vscode.ExtensionContext) {
+    //console.log(vscode.workspace.getConfiguration('editor').get('fontFamily'));
     const searchTypeSearch = vscode.commands.registerCommand('extension.typesearch', onCommand);
     context.subscriptions.push(searchTypeSearch);
 }
