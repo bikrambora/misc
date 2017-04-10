@@ -1,6 +1,6 @@
 {
-    "name": "typesearch",
-    "displayName": "TypeSearch",
+    "name": "search-typesearch",
+    "displayName": "Search TypeSearch",
     "description": "Search Typescript definition files from your editor",
     "version": "0.0.1",
     "publisher": "lucas",
@@ -11,13 +11,13 @@
         "Other"
     ],
     "activationEvents": [
-        "onCommand:extension.sayHello"
+        "onCommand:extension.typesearch"
     ],
     "main": "./out/src/extension",
     "contributes": {
         "commands": [{
-            "command": "extension.sayHello",
-            "title": "Hello World"
+            "command": "extension.typesearch",
+            "title": "Search TypeSearch"
         }]
     },
     "scripts": {
