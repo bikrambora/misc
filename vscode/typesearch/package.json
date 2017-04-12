@@ -1,6 +1,6 @@
 {
     "name": "search-typesearch",
-    "displayName": "Search TypeSearch",
+    "displayName": "TypeSearch: Search Typescript definition files from your editor",
     "description": "Search Typescript definition files from your editor",
     "version": "0.0.1",
     "publisher": "lucas",
@@ -17,7 +17,7 @@
     "contributes": {
         "commands": [{
             "command": "extension.typesearch",
-            "title": "Search TypeSearch"
+            "title": "TypeSearch: Search Typescript definition files from your editor"
         }]
     },
     "scripts": {
