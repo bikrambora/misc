@@ -1,6 +1,8 @@
 'use strict';
 
 import types from './types';
+import fetch from 'node-fetch';
+import * as request from 'request-promise';
 import * as vscode from 'vscode';
 
 interface QuickItem {
@@ -19,9 +21,27 @@ interface RawTypeDefinition {
 };
 
 const placeHolder = 'Search for Types Packages';
+const typesURL = 'https://typespublisher.blob.core.windows.net/typespublisher/data/search-index-min.json';
 
-function onTypeSelected(selected: QuickItem): void {
-    console.log(selected);
+async function onTypeSelected(selected: QuickItem): Promise<string> {
+    const selection = await vscode.window.showInformationMessage(
+        `Type ${selected.label} was selected. Select an installation command to copy to the clipboard`,
+        ...['NPM','Yarn']);
+    return selection;
+}
+
+async function fetchTypes(from: string): Promise<RawTypeDefinition[]> {
+    // const response = await fetch(from, {
+    //     compress: false,
+    //     headers: {
+    //         'Accept': 'application/json',
+    //         'Content-Type': 'application/json'
+    //     }
+    // });
+
+    // const body = await response.json();
+    // console.log(body);
+    return Promise.resolve(types as RawTypeDefinition[]);
 }
 
 function typeToQuickItem(types: RawTypeDefinition[]): QuickItem[] {
@@ -31,8 +51,9 @@ function typeToQuickItem(types: RawTypeDefinition[]): QuickItem[] {
 }
 
 async function onCommand(): Promise<void> {
+    const types = await fetchTypes(typesURL);
     const selected = await vscode.window.showQuickPick(typeToQuickItem(types), { placeHolder });
-    onTypeSelected(selected);
+    const copyCmd = await onTypeSelected(selected);
 }
 
 export function activate(context: vscode.ExtensionContext) {
