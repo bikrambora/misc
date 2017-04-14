@@ -1,7 +1,6 @@
 'use strict';
 
-import types from './types';
-import fetch from 'node-fetch';
+//import types from './types';
 import * as request from 'request-promise';
 import * as vscode from 'vscode';
 
@@ -48,7 +47,6 @@ async function onCommand(): Promise<void> {
 }
 
 export function activate(context: vscode.ExtensionContext) {
-    //console.log(vscode.workspace.getConfiguration('editor').get('fontFamily'));
     const searchTypeSearch = vscode.commands.registerCommand('extension.typesearch', onCommand);
     context.subscriptions.push(searchTypeSearch);
 }
