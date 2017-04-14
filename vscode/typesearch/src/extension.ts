@@ -60,7 +60,7 @@ async function fetchTypes(from: string): Promise<RawTypeDefinition[]> {
 
 function typeToQuickItem(types: RawTypeDefinition[]): QuickItem[] {
     const fromRawType = (type: RawTypeDefinition): QuickItem => ({ description: type.l, label: type.t, detail: type.p });
-    const sortQuickItems = (a: QuickItem, b: QuickItem): Ord => a.label < b.label ? -1 : a.label > b.label ? 1 : 0;
+    const sortQuickItems = (a: QuickItem, b: QuickItem): Ord => a.label < b.label ? Ord.LT : a.label > b.label ? Ord.GT : Ord.EQ;
     return types.map(fromRawType).sort(sortQuickItems);
 }
 
