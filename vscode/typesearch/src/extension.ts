@@ -1,8 +1,13 @@
 'use strict';
 
-//import types from './types';
 import * as request from 'request-promise';
 import * as vscode from 'vscode';
+
+enum Ord {
+    GT = 1,
+    LT = -1,
+    EQ = 0
+};
 
 interface QuickItem {
     description: string;
@@ -20,25 +25,33 @@ interface RawTypeDefinition {
 };
 
 let cache: vscode.Memento;
+const cacheKey = 'typesearch.types';
 const placeHolder = 'Search for Types Packages';
 const typesURL = 'https://typespublisher.blob.core.windows.net/typespublisher/data/search-index-min.json';
 
 async function onTypeSelected(selected: QuickItem): Promise<string> {
     const selection = await vscode.window.showInformationMessage(
-        `Type ${selected.label} was selected. Select an installation command to copy to the clipboard`,
+        `Type ${selected.label} was selected. Select an installation command for your preferred package manager`,
         ...['NPM','Yarn']);
-    const cmd = selection === 'NPM' ? `npm install @types/${selected.label} --save-dev` : `yarn add @types/${selected.label} --dev`;
-    return await vscode.window.showInformationMessage(cmd);
+    
+    switch(selection) {
+        case 'NPM':
+            return vscode.window.showInformationMessage(`npm install @types/${selected.label} --save-dev`);
+        case 'Yarn':
+            return vscode.window.showInformationMessage(`yarn add @types/${selected.label} --dev`);
+        default:
+            return 'No command was selected';
+    }
 }
 
 async function fetchTypes(from: string): Promise<RawTypeDefinition[]> {
-    const types = cache.get('typesearch.types') as RawTypeDefinition[];
+    const types = cache.get(cacheKey) as RawTypeDefinition[];
     if(types) return types;
 
     try {
         const response = await request({ url: from, gzip: true });
         const fetchedTypes = JSON.parse(response) as RawTypeDefinition[];
-        await cache.update('typesearch.types', fetchedTypes);
+        await cache.update(cacheKey, fetchedTypes);
         return fetchedTypes;   
     } catch (error) {
         return Promise.reject('Could not fetch types. Make sure you are connected to the internet');
@@ -46,15 +59,19 @@ async function fetchTypes(from: string): Promise<RawTypeDefinition[]> {
 }
 
 function typeToQuickItem(types: RawTypeDefinition[]): QuickItem[] {
-    return types
-    .map((type) => ({ description: type.l, label: type.t, detail: type.p } as QuickItem))
-    .sort((a, b) => a.label < b.label ? -1 : a.label > b.label ? 1 : 0);
+    const fromRawType = (type: RawTypeDefinition): QuickItem => ({ description: type.l, label: type.t, detail: type.p });
+    const sortQuickItems = (a: QuickItem, b: QuickItem): Ord => a.label < b.label ? -1 : a.label > b.label ? 1 : 0;
+    return types.map(fromRawType).sort(sortQuickItems);
 }
 
 async function onCommand(): Promise<void> {
-    const types = await fetchTypes(typesURL);
-    const selected = await vscode.window.showQuickPick(typeToQuickItem(types), { placeHolder });
-    const copyCmd = await onTypeSelected(selected);
+    try {
+        const types = await fetchTypes(typesURL);
+        const selected = await vscode.window.showQuickPick(typeToQuickItem(types), { placeHolder });
+        const copyCmd = await onTypeSelected(selected);
+    } catch (error) {
+        return Promise.reject(error);
+    }
 }
 
 export function activate(context: vscode.ExtensionContext) {
