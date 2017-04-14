@@ -31,17 +31,8 @@ async function onTypeSelected(selected: QuickItem): Promise<string> {
 }
 
 async function fetchTypes(from: string): Promise<RawTypeDefinition[]> {
-    // const response = await fetch(from, {
-    //     compress: false,
-    //     headers: {
-    //         'Accept': 'application/json',
-    //         'Content-Type': 'application/json'
-    //     }
-    // });
-
-    // const body = await response.json();
-    // console.log(body);
-    return Promise.resolve(types as RawTypeDefinition[]);
+    const response = await request({ url: from, gzip: true });
+    return JSON.parse(response) as RawTypeDefinition[];
 }
 
 function typeToQuickItem(types: RawTypeDefinition[]): QuickItem[] {
