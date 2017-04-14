@@ -26,12 +26,17 @@ async function onTypeSelected(selected: QuickItem): Promise<string> {
     const selection = await vscode.window.showInformationMessage(
         `Type ${selected.label} was selected. Select an installation command to copy to the clipboard`,
         ...['NPM','Yarn']);
-    return selection;
+    const cmd = selection === 'NPM' ? `npm install @types/${selected.label} --save-dev` : `yarn add @types/${selected.label} --dev`;
+    return await vscode.window.showInformationMessage(cmd);
 }
 
 async function fetchTypes(from: string): Promise<RawTypeDefinition[]> {
-    const response = await request({ url: from, gzip: true });
-    return JSON.parse(response) as RawTypeDefinition[];
+    try {
+        const response = await request({ url: from, gzip: true });
+        return JSON.parse(response) as RawTypeDefinition[];   
+    } catch (error) {
+        return Promise.reject('Could not fetch types. Make sure you are connected to the internet');
+    }    
 }
 
 function typeToQuickItem(types: RawTypeDefinition[]): QuickItem[] {
