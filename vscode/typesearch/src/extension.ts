@@ -24,24 +24,42 @@ interface RawTypeDefinition {
 	d: number;
 };
 
+interface CmdSelected {
+    name: string;
+    type: string;    
+}
+
 let cache: vscode.Memento;
 const cacheKey = 'typesearch.types';
 const placeHolder = 'Search for Types Packages';
 const typesURL = 'https://typespublisher.blob.core.windows.net/typespublisher/data/search-index-min.json';
 
-async function onTypeSelected(selected: QuickItem): Promise<string> {
-    const selection = await vscode.window.showInformationMessage(
-        `Type ${selected.label} was selected. Select an installation command for your preferred package manager`,
-        ...['NPM','Yarn']);
+async function onCommandSelected(cmd: CmdSelected): Promise<string> {
+    if(!cmd) return;
     
-    switch(selection) {
+    switch(cmd.name) {
         case 'NPM':
-            return vscode.window.showInformationMessage(`npm install @types/${selected.label} --save-dev`);
+            return vscode.window.showInformationMessage(`npm install @types/${cmd.type} --save-dev`);
         case 'Yarn':
-            return vscode.window.showInformationMessage(`yarn add @types/${selected.label} --dev`);
+            return vscode.window.showInformationMessage(`yarn add @types/${cmd.type} --dev`);
         default:
             return 'No command was selected';
     }
+}
+
+async function onTypeSelected(selected: QuickItem): Promise<CmdSelected> {
+    if(!selected) return;
+
+    const selection = await vscode.window.showInformationMessage(
+        `Type ${selected.label} was selected. Select an installation command for your preferred package manager`,
+        ...['NPM','Yarn']
+    );
+    const cmd: CmdSelected = {
+        name: selection,
+        type: selected.label
+    };
+
+    return cmd;
 }
 
 async function fetchTypes(from: string): Promise<RawTypeDefinition[]> {
@@ -64,11 +82,12 @@ function typeToQuickItem(types: RawTypeDefinition[]): QuickItem[] {
     return types.map(fromRawType).sort(sortQuickItems);
 }
 
-async function onCommand(): Promise<void> {
+async function onCommandActivation(): Promise<void> {
     try {
         const types = await fetchTypes(typesURL);
         const selected = await vscode.window.showQuickPick(typeToQuickItem(types), { placeHolder });
         const copyCmd = await onTypeSelected(selected);
+        await onCommandSelected(copyCmd);
     } catch (error) {
         return Promise.reject(error);
     }
@@ -76,7 +95,7 @@ async function onCommand(): Promise<void> {
 
 export function activate(context: vscode.ExtensionContext) {
     cache = context.globalState;
-    const searchTypeSearch = vscode.commands.registerCommand('extension.typesearch', onCommand);
+    const searchTypeSearch = vscode.commands.registerCommand('extension.typesearch', onCommandActivation);
     context.subscriptions.push(searchTypeSearch);
 }
 
