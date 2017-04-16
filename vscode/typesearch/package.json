@@ -1,5 +1,5 @@
 {
-  "name": "search-typesearch",
+  "name": "vscode-typesearch",
   "displayName": "TypeSearch: Search Typescript definition files from your editor",
   "description": "Search Typescript definition files from your editor",
   "version": "0.0.1",
