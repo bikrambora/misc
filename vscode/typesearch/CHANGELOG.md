@@ -1,7 +1,7 @@
 # Change Log
-All notable changes to the "typesearch" extension will be documented in this file.
-
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
 ## [Unreleased]
-- Initial release
+### Added
+- Search types definitions
+- Select types and show their installation command
+- Cache types for faster subsequents searches

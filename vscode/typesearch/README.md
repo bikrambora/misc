@@ -24,7 +24,3 @@ This extension contributes the following settings:
 * `typesearch.cacheTTL`: ``
 
 ## Release Notes
-
-### 0.0.1
-
-Ability to search and select installation command for selected type definition.

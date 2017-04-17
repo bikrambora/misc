@@ -26,7 +26,7 @@ interface RawTypeDefinition {
 
 interface CmdSelected {
     name: string;
-    type: string;    
+    type: string;
 }
 
 let cache: vscode.Memento;
@@ -36,7 +36,7 @@ const typesURL = 'https://typespublisher.blob.core.windows.net/typespublisher/da
 
 async function onCommandSelected(cmd: CmdSelected): Promise<string> {
     if(!cmd) return;
-    
+
     switch(cmd.name) {
         case 'NPM':
             return vscode.window.showInformationMessage(`npm install @types/${cmd.type} --save-dev`);
@@ -70,10 +70,10 @@ async function fetchTypes(from: string): Promise<RawTypeDefinition[]> {
         const response = await request({ url: from, gzip: true });
         const fetchedTypes = JSON.parse(response) as RawTypeDefinition[];
         await cache.update(cacheKey, fetchedTypes);
-        return fetchedTypes;   
+        return fetchedTypes;
     } catch (error) {
         return Promise.reject('Could not fetch types. Make sure you are connected to the internet');
-    }    
+    }
 }
 
 function typeToQuickItem(types: RawTypeDefinition[]): QuickItem[] {
