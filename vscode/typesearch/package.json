@@ -2,8 +2,8 @@
   "name": "vscode-typesearch",
   "displayName": "TypeSearch: Search Typescript definition files from your editor",
   "description": "Search Typescript definition files from your editor",
-  "version": "0.0.1",
-  "publisher": "lucas",
+  "version": "0.1.0",
+  "publisher": "lucasschejtman",
   "engines": {
     "vscode": "^1.10.0"
   },
