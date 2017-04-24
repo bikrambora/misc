@@ -44,11 +44,21 @@ const toP = fn => Promise.resolve(fn);
 // };
 // composeP();
 
-const lift = () => {
-  const obj = { name: "lucas", contact: { mobile: ["1", "2", "3"], home: [] } };
-  const mobileProp = R.path(['contact', 'mobile']);
-  const mObj = Maybe.fromNullable(obj);
-  const res = mObj.map(mobileProp).chain(Maybe.fromNullable).map(R.head);
-  console.log(res.getOrElse([]));
-};
-lift();
+// const lift = () => {
+//   const obj = { name: "lucas", contact: { mobile: ["1", "2", "3"], home: [] } };
+//   const mobileProp = R.path(['contact', 'mobile']);
+//   const mObj = Maybe.fromNullable(obj);
+//   const res = mObj.map(mobileProp).chain(Maybe.fromNullable).map(R.head);
+//   console.log(res.getOrElse([]));
+// };
+// lift();
+
+(() => {
+  const rr = require('./rr');
+
+  R.compose(
+    R.add,
+    rr.trace('after add'),
+    R.add
+  )(1);
+})();
