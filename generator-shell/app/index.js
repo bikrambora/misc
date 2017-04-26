@@ -28,7 +28,9 @@ class AppGenerator extends Generator {
             {
                 type: 'input',
                 name: 'repository',
-                message: 'Your component repository'
+                message: 'Your component repository',
+                // assuming it's a git repository
+                filter: (value) => value && value !== '' && !value.endsWith('.git') ? `${value}.git` : value
             },
             {
                 type: 'checkbox',
