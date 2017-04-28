@@ -4,6 +4,8 @@ const Generator = require('yeoman-generator');
 class AppGenerator extends Generator {
     constructor(args, opts) {
         super(args, opts);
+
+        this.option('skip-install', { default: false, type: Boolean });
     }
 
     async prompting() {
@@ -26,7 +28,7 @@ class AppGenerator extends Generator {
     }
 
     install() {
-        this.npmInstall(null, null, null, { cwd: `./${this.prompts.name}/` });
+        if(!this.options.skipInstall) this.npmInstall(null, null, null, { cwd: `./${this.prompts.name}/` });
     }
 }
 
