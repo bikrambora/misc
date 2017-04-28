@@ -1,3 +1,4 @@
+const config = require('./config');
 const Generator = require('yeoman-generator');
 
 class AppGenerator extends Generator {
@@ -6,39 +7,7 @@ class AppGenerator extends Generator {
     }
 
     async prompting() {
-        this.prompts = await this.prompt([
-            {
-                type: 'input',
-                name: 'name',
-                message: 'Your component name',
-                default: 'shell-component'
-            },
-            {
-                type: 'input',
-                name: 'description',
-                message: 'Your component description',
-                default: 'awesome piece of react'
-            },
-            {
-                type: 'input',
-                name: 'version',
-                message: 'Your component version',
-                default: '0.1.0'
-            },
-            {
-                type: 'input',
-                name: 'repository',
-                message: 'Your component repository',
-                // assuming it's a git repository
-                filter: (value) => value && value !== '' && !value.endsWith('.git') ? `${value}.git` : value
-            },
-            {
-                type: 'checkbox',
-                name: 'deps',
-                message: 'Select extra dependencies',
-                choices: [ 'redux', 'ohw-svg' ]
-            }
-        ]);
+        this.prompts = await this.prompt(config.prompts);
     }
 
     writing() {

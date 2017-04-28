@@ -3,15 +3,12 @@
     "version": "<%= prompts.version %>",
     "description": "<%= prompts.description %>",
     "author": {
-        "name": "Author Name."
+        "name": "<%= prompts.author %>"
     },
     "license": "SEE LICENSE IN LICENSE",
     "repository": {
         "type": "git",
         "url": "<%= prompts.repository %>"
     },
-    "dependencies": {
-        "fs": "*"
-        <% if(prompts.deps.includes('redux')) { %>,"redux": "*"<% } %>
-    }
+    "dependencies": <%- JSON.stringify(prompts.deps) %>
 }
