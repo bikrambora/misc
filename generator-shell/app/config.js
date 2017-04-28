@@ -35,6 +35,16 @@ module.exports = {
             ],
             // merge all selected options into an object
             filter: (value) => value.reduce((acc, val) => Object.assign({}, acc, val), {})
+        },
+        {
+            type: 'checkbox',
+            name: 'devDeps',
+            message: 'Select development dependencies',
+            choices: [
+                { name: 'mocha', value: { "mocha" : "*" } }
+            ],
+            // merge all selected options into an object
+            filter: (value) => value.reduce((acc, val) => Object.assign({}, acc, val), {})
         }
     ]
 };
