@@ -1,3 +1,5 @@
+const dependencies = require('./dependencies');
+
 module.exports = {
     prompts: [
         {
@@ -30,11 +32,10 @@ module.exports = {
             name: 'deps',
             message: 'Select runtime dependencies',
             choices: [
-                { name: 'redux', value: { "redux" : "*" } },
-                { name: 'react', value: { "react" : "*" } }
+                { name: 'redux', value: { "redux" : "*" } }
             ],
             // merge all selected options into an object
-            filter: (value) => value.reduce((acc, val) => Object.assign({}, acc, val), {})
+            filter: (value) => value.reduce((acc, val) => Object.assign({}, acc, val), dependencies.runtime)
         },
         {
             type: 'checkbox',
