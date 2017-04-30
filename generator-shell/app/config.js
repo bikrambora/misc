@@ -42,10 +42,10 @@ module.exports = {
             name: 'devDeps',
             message: 'Select development dependencies',
             choices: [
-                { name: 'mocha', value: { "mocha" : "*" } }
+                { name: 'babel', value: { "babel" : "*" } }
             ],
             // merge all selected options into an object
-            filter: (value) => value.reduce((acc, val) => Object.assign({}, acc, val), {})
+            filter: (value) => value.reduce((acc, val) => Object.assign({}, acc, val), dependencies.development)
         }
     ]
 };
