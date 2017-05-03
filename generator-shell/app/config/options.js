@@ -1,3 +1,9 @@
 module.exports = [
-    { name: 'skip-install', config: { default: false, type: Boolean } }
+    {
+        name: 'skipinstall',
+        config: {
+            default: false,
+            type: v => v === 'true'
+        }
+    }
 ];

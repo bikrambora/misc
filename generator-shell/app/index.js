@@ -5,7 +5,7 @@ class AppGenerator extends Generator {
     constructor(args, opts) {
         super(args, opts);
 
-        this.option('skip-install', { default: false, type: Boolean });
+        config.options.forEach(opt => this.option(opt.name, opt.config));
     }
 
     async prompting() {
@@ -28,7 +28,7 @@ class AppGenerator extends Generator {
     }
 
     install() {
-        if(!this.options.skipInstall) this.npmInstall(null, null, null, { cwd: `./${this.prompts.name}/` });
+        if(!this.options['skipinstall']) this.npmInstall(null, null, null, { cwd: `./${this.prompts.name}/` });
     }
 }
 
