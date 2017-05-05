@@ -5,6 +5,7 @@ class AppGenerator extends Generator {
     constructor(args, opts) {
         super(args, opts);
 
+        config.args.forEach(arg => this.argument(arg.name, arg.config));
         config.options.forEach(opt => this.option(opt.name, opt.config));
     }
 
