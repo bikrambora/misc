@@ -3,7 +3,7 @@ module.exports = [
         name: 'skipinstall',
         config: {
             default: false,
-            type: v => v.toLowerCase() === 'true'
+            type: v => v && v.toString().toLowerCase() === 'true'
         }
     }
 ];
