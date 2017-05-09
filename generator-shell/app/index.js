@@ -1,6 +1,14 @@
 const config = require('./config');
 const Generator = require('yeoman-generator');
 
+const createScaffold = (app) => {
+    app.fs.copy(
+        app.templatePath('scaffold/**/+(**|.*)'),
+        app.destinationPath(`${app.prompts.name}/`),
+        { dot: true }
+    );
+}
+
 class AppGenerator extends Generator {
     _createScaffold() {
         this.fs.copy(
@@ -30,7 +38,7 @@ class AppGenerator extends Generator {
     }
 
     writing() {
-        this._createScaffold();
+        createScaffold(this);
         this._processPackageJSON();
     }
 
