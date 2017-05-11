@@ -9,23 +9,15 @@ const createScaffold = (app) => {
     );
 }
 
+const processPackageJSON = (app) => {
+    app.fs.copyTpl(
+        app.templatePath('package.ejs'),
+        app.destinationPath(`${app.prompts.name}/package.json`),
+        { prompts: app.prompts }
+    );
+}
+
 class AppGenerator extends Generator {
-    _createScaffold() {
-        this.fs.copy(
-            this.templatePath('scaffold/**/+(**|.*)'),
-            this.destinationPath(`${this.prompts.name}/`),
-            { dot: true }
-        );
-    }
-
-    _processPackageJSON() {
-        this.fs.copyTpl(
-            this.templatePath('package.ejs'),
-            this.destinationPath(`${this.prompts.name}/package.json`),
-            { prompts: this.prompts }
-        );
-    }
-
     constructor(args, opts) {
         super(args, opts);
 
@@ -39,7 +31,7 @@ class AppGenerator extends Generator {
 
     writing() {
         createScaffold(this);
-        this._processPackageJSON();
+        processPackageJSON(this);
     }
 
     install() {
