@@ -19,7 +19,9 @@ class AppGenerator extends Generator {
     }
 
     install() {
-        if(!this.options['skipinstall']) this.npmInstall(null, null, null, { cwd: `./${this.prompts.name}/` });
+        if(!this.options['skipinstall']) {
+            if(this.options['pkgmanager'] === 'npm') return this.npmInstall(null, null, null, { cwd: `./${this.prompts.name}/` });
+        };
     }
 }
 
