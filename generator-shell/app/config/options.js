@@ -10,7 +10,8 @@ module.exports = [
     {
         name: 'pkgmanager',
         config: {
-            default: 'npm'
+            default: 'npm',
+            desc: 'Determines which package manager the project uses'
         }
     }
 ];
