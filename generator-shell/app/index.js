@@ -15,11 +15,11 @@ class AppGenerator extends Generator {
     }
 
     writing() {
-        writer.write(this);
+        writer(this);
     }
 
     install() {
-        if(!this.options['skipinstall']) {
+        if(!this.options['skip-install']) {
             if(this.options['pkgmanager'] === 'npm') return this.npmInstall(null, null, null, { cwd: `./${this.prompts.name}/` });
             if(this.options['pkgmanager'] === 'yarn') return this.yarnInstall(null, null, null, { cwd: `./${this.prompts.name}/` });
         };
