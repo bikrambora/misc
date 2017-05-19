@@ -19,8 +19,10 @@ class AppGenerator extends Generator {
     }
 
     install() {
-        if(this.options['pkgmanager'] === 'npm') return this.npmInstall(null, null, null, { cwd: `./${this.prompts.name}/` });
-        if(this.options['pkgmanager'] === 'yarn') return this.yarnInstall(null, null, null, { cwd: `./${this.prompts.name}/` });
+        switch(this.options['pkgmanager']) {
+            case 'npm': this.npmInstall(null, null, null, { cwd: `./${this.prompts.name}/` });
+            case 'yarn': this.yarnInstall(null, null, null, { cwd: `./${this.prompts.name}/` });
+        }
     }
 }
 
