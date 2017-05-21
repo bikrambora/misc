@@ -22,7 +22,7 @@ class AppGenerator extends Generator {
         switch(this.options['pkgmanager']) {
             case 'npm': this.npmInstall(null, null, null, { cwd: `./${this.prompts.name}/` });
             case 'yarn': this.yarnInstall(null, null, null, { cwd: `./${this.prompts.name}/` });
-            default: throw new Error('Unsupported pkgmanager option');
+            default: throw new Error(`Unsupported pkgmanager option -> ${this.options['pkgmanager']}`);
         }
     }
 }
