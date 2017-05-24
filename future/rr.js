@@ -300,10 +300,9 @@ export const hypot = R.compose(Math.sqrt, R.sum, R.map(x => x * x));
 
 // Ramda compose/pipe promise support
 const ofP = R.bind(Promise.resolve, Promise);
-// const thenP = R.invoker(1, 'then');
-// // could also add catch, or even thencatch trivially.
-// const catchP = R.invoker(1, 'catch');
-// const thenCatchP = R.invoker(2, 'then');
+const thenP = R.invoker(1, 'then');
+const catchP = R.invoker(1, 'catch');
+const thenCatchP = R.invoker(2, 'then');
 
 // const promiseAdd2Multiply4 = R.pipe(
 //   ofP,
