@@ -303,14 +303,13 @@ const ofP = R.bind(Promise.resolve, Promise);
 const thenP = R.invoker(1, 'then');
 const catchP = R.invoker(1, 'catch');
 const thenCatchP = R.invoker(2, 'then');
+const logP = thenP(R.tap(console.log));
 
-// const promiseAdd2Multiply4 = R.pipe(
-//   ofP,
-//   thenP(R.add(2)),
-//   thenP(R.multiply(4))
-// )
-
-// let logP = thenP(R.tap(console.log))
+const niceComposition = R.compose(
+  thenP(R.multiply(4)),
+  thenP(R.add(2)),
+  ofP
+);
 
 // logP(promiseAdd2Multiply4(2)) // logs 16
 
