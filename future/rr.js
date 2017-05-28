@@ -319,12 +319,8 @@ const niceComposition = R.compose(
   ofP
 );
 
-// logP(promiseAdd2Multiply4(2)) // logs 16
-
-// // alternatively, just wrap `thenP` and pass an `ofP` which
-// // allows composition of any functions to Promise based ones.
-// const add2Multiply4 = R.pipe(
-//   R.add(2),
-//   R.multiply(4)
-// );
+const niceCompositionP = thenP(R.compose(
+  R.multiply(4),
+  R.add(2)
+));
 // thenP(add2Multiply4)(ofP(2))
