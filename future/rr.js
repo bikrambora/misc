@@ -300,7 +300,15 @@ export const hypot = R.compose(Math.sqrt, R.sum, R.map(x => x * x));
 
 // Ramda compose/pipe promise support
 const ofP = R.bind(Promise.resolve, Promise);
-const thenP = R.invoker(1, 'then');
+
+/**
+ * Allows to promisify function to be used in normal compositions with promises
+ * 
+ * @sig (a -> b) -> Thenable (a -> b)
+ * @param Function
+ * @return Promise<Function>
+ */
+export const thenP = R.invoker(1, 'then');
 const catchP = R.invoker(1, 'catch');
 const thenCatchP = R.invoker(2, 'then');
 const logP = thenP(R.tap(console.log));
@@ -311,12 +319,8 @@ const niceComposition = R.compose(
   ofP
 );
 
-// logP(promiseAdd2Multiply4(2)) // logs 16
-
-// // alternatively, just wrap `thenP` and pass an `ofP` which
-// // allows composition of any functions to Promise based ones.
-// const add2Multiply4 = R.pipe(
-//   R.add(2),
-//   R.multiply(4)
-// );
+const niceCompositionP = thenP(R.compose(
+  R.multiply(4),
+  R.add(2)
+));
 // thenP(add2Multiply4)(ofP(2))
