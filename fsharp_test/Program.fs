@@ -20,7 +20,8 @@ let moveTo board move robot =
 let main argv =
     let robot = { position = { x = 0; y = 0 } }
     let board: Board = { size = { x = 4; y = 4 } }
-    let sequence = moveTo board Up robot
+    let sequence = robot
+                    |> moveTo board Up
                     |> moveTo board Up
                     |> moveTo board Right
                     |> moveTo board Right
