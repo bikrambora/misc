@@ -32,5 +32,15 @@ let main argv =
                     |> moveTo board Up
                     |> moveTo board Left
 
+    let rec game () =
+        match Console.ReadKey(true).Key with
+        | ConsoleKey.UpArrow -> printfn "up arrow"
+                                game()
+        | ConsoleKey.Escape  -> printfn "exiting"
+        | _                  -> printfn "wrong input"
+                                game()
+
+
     printfn "%s" (string sequence.position)
+    game()
     0
