@@ -20,6 +20,11 @@ let moveTo board (move:Move) robot =
     | Left  & ValidLeft (x, 0) newX  | Right & ValidRight (x, maxX) newX    -> horizontalMove newX
     | _                                                                     -> robot
 
+let (|Arrow|_|) = function
+    | ConsoleKey.UpArrow    -> Some(Up)
+    | ConsoleKey.DownArrow  -> Some(Down)
+    | _                     -> None
+
 [<EntryPoint>]
 let main argv =
     let robot = { position = { x = 0; y = 0 } }
@@ -34,7 +39,7 @@ let main argv =
 
     let rec game () =
         match Console.ReadKey(true).Key with
-        | ConsoleKey.UpArrow -> printfn "up arrow"
+        | Arrow direction    -> printfn "%s" (string direction)
                                 game()
         | ConsoleKey.Escape  -> printfn "exiting"
         | _                  -> printfn "wrong input"
