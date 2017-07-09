@@ -6,10 +6,14 @@ type Robot = { position: Position }
 type Board = { size: Position }
 type State = { robot: Robot; board: Board }
 
-let (|ValidUp|_|) (y, maxY) (_:Move) = if y + 1 <= maxY then Some(y + 1) else None
-let (|ValidDown|_|) (y, minY) (_:Move) = if y - 1 >= minY then Some(y - 1) else None
-let (|ValidLeft|_|) (x, minX) (_:Move) = if x - 1 <= minX then Some(x - 1) else None
-let (|ValidRight|_|) (x, maxX) (_:Move) = if x + 1 <= maxX then Some(x + 1) else None
+let inc = (+) 1
+
+let dec = (-) 1
+
+let (|ValidUp|_|) (y, maxY) (_:Move) = if inc y <= maxY then Some(inc y) else None
+let (|ValidDown|_|) (y, minY) (_:Move) = if dec y >= minY then Some(dec y) else None
+let (|ValidLeft|_|) (x, minX) (_:Move) = if dec x <= minX then Some(dec x) else None
+let (|ValidRight|_|) (x, maxX) (_:Move) = if inc x <= maxX then Some(inc x) else None
 
 let moveTo board (move:Move) robot =
     let { x = x; y = y } = robot.position
