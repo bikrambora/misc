@@ -4,6 +4,7 @@ type Move = Up | Down | Left | Right
 type Position = { x: int; y: int }
 type Robot = { position: Position }
 type Board = { size: Position }
+type State = { robot: Robot; board: Board }
 
 let (|ValidUp|_|) (y, maxY) (_:Move) = if y + 1 <= maxY then Some(y + 1) else None
 let (|ValidDown|_|) (y, minY) (_:Move) = if y - 1 >= minY then Some(y - 1) else None
@@ -31,23 +32,18 @@ let (|Arrow|_|) = function
 let main argv =
     let robot = { position = { x = 0; y = 0 } }
     let board: Board = { size = { x = 4; y = 4 } }
-    let sequence = robot
-                    |> moveTo board Up
-                    |> moveTo board Right
-                    |> moveTo board Right
-                    |> moveTo board Up
-                    |> moveTo board Up
-                    |> moveTo board Left
+    let initialState = { robot = robot; board = board }
 
-    let rec game () =
+    let rec game (state: State) =
         match Console.ReadKey(true).Key with
         | Arrow direction    -> printfn "%s" (string direction)
-                                game()
+                                let newState = state
+                                game(newState)
         | ConsoleKey.Escape  -> printfn "exiting"
+                                state
         | _                  -> printfn "wrong input"
-                                game()
+                                game(state)
 
-
-    printfn "%s" (string sequence.position)
-    game()
+    let result = game(initialState)
+    printfn "%s" (string result.robot.position)
     0
