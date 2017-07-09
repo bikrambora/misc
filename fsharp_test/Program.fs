@@ -24,6 +24,7 @@ let (|Arrow|_|) = function
     | ConsoleKey.UpArrow    -> Some(Up)
     | ConsoleKey.DownArrow  -> Some(Down)
     | ConsoleKey.LeftArrow  -> Some(Left)
+    | ConsoleKey.RightArrow -> Some(Right)
     | _                     -> None
 
 [<EntryPoint>]
