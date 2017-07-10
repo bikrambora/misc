@@ -6,9 +6,9 @@ type Robot = { position: Position }
 type Board = { size: Position }
 type State = { robot: Robot; board: Board }
 
+let flip f x y = f y x
 let inc = (+) 1
-
-let dec = (-) 1
+let dec = flip (-) 1
 
 let (|ValidUp|_|) (y, maxY) (_:Move) = if inc y <= maxY then Some(inc y) else None
 let (|ValidDown|_|) (y, minY) (_:Move) = if dec y >= minY then Some(dec y) else None
