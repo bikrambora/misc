@@ -15,7 +15,7 @@ let (|ValidDown|_|) (y, minY) (_:Move) = if dec y >= minY then Some(dec y) else 
 let (|ValidLeft|_|) (x, minX) (_:Move) = if dec x <= minX then Some(dec x) else None
 let (|ValidRight|_|) (x, maxX) (_:Move) = if inc x <= maxX then Some(inc x) else None
 
-let moveTo state (move:Move) =
+let moveTo state move =
     let { x = x; y = y } = state.robot.position
     let { x = maxX; y = maxY } = state.board.size
     let verticalMove newY = { state with robot = { position = { x = x; y = newY } } }
