@@ -15,15 +15,15 @@ let (|ValidDown|_|) (y, minY) (_:Move) = if dec y >= minY then Some(dec y) else 
 let (|ValidLeft|_|) (x, minX) (_:Move) = if dec x <= minX then Some(dec x) else None
 let (|ValidRight|_|) (x, maxX) (_:Move) = if inc x <= maxX then Some(inc x) else None
 
-let moveTo board (move:Move) robot =
-    let { x = x; y = y } = robot.position
-    let { x = maxX; y = maxY } = board.size
-    let verticalMove newY = { position = { x = x; y = newY } }
-    let horizontalMove newX = { position = { x = newX; y = y } }
+let moveTo state (move:Move) =
+    let { x = x; y = y } = state.robot.position
+    let { x = maxX; y = maxY } = state.board.size
+    let verticalMove newY = { state with robot = { position = { x = x; y = newY } } }
+    let horizontalMove newX = { state with robot = { position = { x = newX; y = y } } }
     match move with
     | Up    & ValidUp (y, maxY) newY | Down  & ValidDown (y, 0) newY        -> verticalMove newY
     | Left  & ValidLeft (x, 0) newX  | Right & ValidRight (x, maxX) newX    -> horizontalMove newX
-    | _                                                                     -> robot
+    | _                                                                     -> state
 
 let (|Arrow|_|) = function
     | ConsoleKey.UpArrow    -> Some(Up)
@@ -41,7 +41,7 @@ let main argv =
     let rec game (state: State) =
         match Console.ReadKey(true).Key with
         | Arrow direction    -> printfn "%s" (string direction)
-                                let newState = state
+                                let newState = moveTo state direction
                                 game(newState)
         | ConsoleKey.Escape  -> printfn "exiting"
                                 state
