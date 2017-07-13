@@ -25,7 +25,7 @@ let moveTo state move =
     | Left  & ValidLeft (x, 0) newX  | Right & ValidRight (x, maxX) newX    -> horizontalMove newX
     | _                                                                     -> state
 
-let (|Arrow|_|) = function
+let (|ArrowKey|_|) = function
     | ConsoleKey.UpArrow    -> Some(Up)
     | ConsoleKey.DownArrow  -> Some(Down)
     | ConsoleKey.LeftArrow  -> Some(Left)
@@ -40,7 +40,7 @@ let main argv =
 
     let rec game (state: State) =
         match Console.ReadKey(true).Key with
-        | Arrow direction    -> printfn "%s" (string direction)
+        | ArrowKey direction -> printfn "%s" (string direction)
                                 let newState = moveTo state direction
                                 game(newState)
         | ConsoleKey.Escape  -> printfn "exiting"
