@@ -10,10 +10,10 @@ let flip f x y = f y x
 let inc = (+) 1
 let dec = flip (-) 1
 
-let (|ValidUp|_|) (y, maxY) (_:Move) = if inc y <= maxY then Some(inc y) else None
-let (|ValidDown|_|) (y, minY) (_:Move) = if dec y >= minY then Some(dec y) else None
-let (|ValidLeft|_|) (x, minX) (_:Move) = if dec x <= minX then Some(dec x) else None
-let (|ValidRight|_|) (x, maxX) (_:Move) = if inc x <= maxX then Some(inc x) else None
+let (|ValidUp|_|) (newY, maxY) (_:Move) = if newY <= maxY then Some(newY) else None
+let (|ValidDown|_|) (newY, minY) (_:Move) = if newY >= minY then Some(newY) else None
+let (|ValidLeft|_|) (newX, minX) (_:Move) = if newX >= minX then Some(newX) else None
+let (|ValidRight|_|) (newX, maxX) (_:Move) = if newX <= maxX then Some(newX) else None
 
 let moveTo state move =
     let { x = x; y = y } = state.robot.position
@@ -21,9 +21,9 @@ let moveTo state move =
     let verticalMove newY = { state with robot = { position = { x = x; y = newY } } }
     let horizontalMove newX = { state with robot = { position = { x = newX; y = y } } }
     match move with
-    | Up    & ValidUp (y, maxY) newY | Down  & ValidDown (y, 0) newY        -> verticalMove newY
-    | Left  & ValidLeft (x, 0) newX  | Right & ValidRight (x, maxX) newX    -> horizontalMove newX
-    | _                                                                     -> state
+    | Up    & ValidUp (inc y, maxY) newY | Down  & ValidDown (dec y, 0) newY        -> verticalMove newY
+    | Left  & ValidLeft (dec x, 0) newX  | Right & ValidRight (inc x, maxX) newX    -> horizontalMove newX
+    | _                                                                             -> state
 
 let (|ArrowKey|_|) = function
     | ConsoleKey.UpArrow    -> Some(Up)
