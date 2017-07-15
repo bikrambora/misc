@@ -18,11 +18,11 @@ let (|ValidRight|_|) (newX, maxX) (_:Move) = if newX <= maxX then Some(newX) els
 let moveTo state move =
     let { x = x; y = y } = state.robot.position
     let { x = maxX; y = maxY } = state.board.size
-    let verticalMove newY = { state with robot = { position = { x = x; y = newY } } }
-    let horizontalMove newX = { state with robot = { position = { x = newX; y = y } } }
+    let moveY newY = { state with robot = { position = { x = x; y = newY } } }
+    let moveX newX = { state with robot = { position = { x = newX; y = y } } }
     match move with
-    | Up    & ValidUp (inc y, maxY) newY | Down  & ValidDown (dec y, 0) newY        -> verticalMove newY
-    | Left  & ValidLeft (dec x, 0) newX  | Right & ValidRight (inc x, maxX) newX    -> horizontalMove newX
+    | Up    & ValidUp (inc y, maxY) newY | Down  & ValidDown (dec y, 0) newY        -> moveY newY
+    | Left  & ValidLeft (dec x, 0) newX  | Right & ValidRight (inc x, maxX) newX    -> moveX newX
     | _                                                                             -> state
 
 let (|ArrowKey|_|) = function
