@@ -10,10 +10,10 @@ let flip f x y = f y x
 let inc = (+) 1
 let dec = flip (-) 1
 
-let (|ValidUp|_|) (newY, maxY) (_:Move) = if newY <= maxY then Some(newY) else None
-let (|ValidDown|_|) (newY, minY) (_:Move) = if newY >= minY then Some(newY) else None
-let (|ValidLeft|_|) (newX, minX) (_:Move) = if newX >= minX then Some(newX) else None
-let (|ValidRight|_|) (newX, maxX) (_:Move) = if newX <= maxX then Some(newX) else None
+let (|ValidUp|_|) (newY:int, maxY:int) (_:Move) = if newY <= maxY then Some(newY) else None
+let (|ValidDown|_|) (newY:int, minY:int) (_:Move) = if newY >= minY then Some(newY) else None
+let (|ValidLeft|_|) (newX:int, minX:int) (_:Move) = if newX >= minX then Some(newX) else None
+let (|ValidRight|_|) (newX:int, maxX:int) (_:Move) = if newX <= maxX then Some(newX) else None
 
 let moveTo state move =
     let { x = x; y = y } = state.robot.position
