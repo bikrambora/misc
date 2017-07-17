@@ -50,5 +50,5 @@ let main argv =
 
     printfn "Use arrow keys to move and ESC to exit"
     let result = game(initialState)
-    printfn "%s" (string result.robot.position)
+    printfn "%A" result.robot.position
     0
