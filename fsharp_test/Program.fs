@@ -48,7 +48,10 @@ let main argv =
         | _                  -> printfn "wrong input"
                                 game(state)
 
-    printfn "Use arrow keys to move and ESC to exit"
+    printfn ""                            
+    printfn "> Use arrow keys to move the robot"
+    printfn "> Exit at any time by pressing ESC key"
+    printfn ""
     let result = game(initialState)
     printfn "%A" result.robot.position
     0
