@@ -41,8 +41,7 @@ let main argv =
     let rec game (state: State) =
         match Console.ReadKey(true).Key with
         | ArrowKey direction -> printfn "%s" (string direction)
-                                let newState = moveTo state direction
-                                game(newState)
+                                moveTo state direction |> game
         | ConsoleKey.Escape  -> printfn "exiting"
                                 state
         | _                  -> printfn "wrong input"
