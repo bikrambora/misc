@@ -10,10 +10,17 @@ let flip f x y = f y x
 let inc = (+) 1
 let dec = flip (-) 1
 
-let (|ValidUp|_|) (newY:int, maxY:int) (_:Move) = if newY <= maxY then Some(newY) else None
-let (|ValidDown|_|) (newY:int, minY:int) (_:Move) = if newY >= minY then Some(newY) else None
-let (|ValidLeft|_|) (newX:int, minX:int) (_:Move) = if newX >= minX then Some(newX) else None
-let (|ValidRight|_|) (newX:int, maxX:int) (_:Move) = if newX <= maxX then Some(newX) else None
+let (|ValidUp|_|) (newY:int, maxY:int) (_:Move) = if newY <= maxY then Some newY else None
+let (|ValidDown|_|) (newY:int, minY:int) (_:Move) = if newY >= minY then Some newY else None
+let (|ValidLeft|_|) (newX:int, minX:int) (_:Move) = if newX >= minX then Some newX else None
+let (|ValidRight|_|) (newX:int, maxX:int) (_:Move) = if newX <= maxX then Some newX else None
+
+let (|ArrowKey|_|) = function
+    | ConsoleKey.UpArrow    -> Some Up
+    | ConsoleKey.DownArrow  -> Some Down
+    | ConsoleKey.LeftArrow  -> Some Left
+    | ConsoleKey.RightArrow -> Some Right
+    | _                     -> None
 
 let moveTo state move =
     let { x = x; y = y } = state.robot.position
@@ -24,13 +31,6 @@ let moveTo state move =
     | Up    & ValidUp (inc y, maxY) newY | Down  & ValidDown (dec y, 0) newY        -> moveY newY
     | Left  & ValidLeft (dec x, 0) newX  | Right & ValidRight (inc x, maxX) newX    -> moveX newX
     | _                                                                             -> state
-
-let (|ArrowKey|_|) = function
-    | ConsoleKey.UpArrow    -> Some(Up)
-    | ConsoleKey.DownArrow  -> Some(Down)
-    | ConsoleKey.LeftArrow  -> Some(Left)
-    | ConsoleKey.RightArrow -> Some(Right)
-    | _                     -> None
 
 [<EntryPoint>]
 let main argv =
@@ -45,12 +45,12 @@ let main argv =
         | ConsoleKey.Escape  -> printfn "exiting"
                                 state
         | _                  -> printfn "wrong input"
-                                game(state)
+                                game state
 
-    printfn ""                            
+    printfn ""
     printfn "> Use arrow keys to move the robot"
     printfn "> Exit at any time by pressing ESC key"
     printfn ""
-    let result = game(initialState)
+    let result = game initialState
     printfn "%A" result.robot.position
     0
