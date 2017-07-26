@@ -5,6 +5,7 @@ type Position = { x: int; y: int }
 type Robot = { position: Position }
 type Board = { size: Position }
 type State = { robot: Robot; board: Board }
+type Action = Place of Position | Move of Move
 
 let flip f x y = f y x
 let inc = (+) 1
