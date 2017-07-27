@@ -29,9 +29,11 @@ let moveTo state move =
     let moveY newY = { state with robot = { position = { x = x; y = newY } } }
     let moveX newX = { state with robot = { position = { x = newX; y = y } } }
     match move with
-    | Up    & ValidUp (inc y, maxY) newY | Down  & ValidDown (dec y, 0) newY        -> moveY newY
-    | Left  & ValidLeft (dec x, 0) newX  | Right & ValidRight (inc x, maxX) newX    -> moveX newX
-    | _                                                                             -> state
+    | Up    & ValidUp (inc y, maxY) newY 
+    | Down  & ValidDown (dec y, 0) newY        -> moveY newY
+    | Left  & ValidLeft (dec x, 0) newX  
+    | Right & ValidRight (inc x, maxX) newX    -> moveX newX
+    | _                                        -> state
 
 [<EntryPoint>]
 let main argv =
