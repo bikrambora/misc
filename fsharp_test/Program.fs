@@ -6,6 +6,10 @@ type Robot = { position: Position }
 type Board = { size: Position }
 type State = { robot: Robot; board: Board }
 type Action = Place of Position | Move of Move
+type KeyAction = 
+    | ArrowKey of Move
+    | ExitKey
+    | InvalidKey
 
 let flip f x y = f y x
 let inc = (+) 1
@@ -22,6 +26,7 @@ let (|ArrowKey|_|) = function
     | ConsoleKey.LeftArrow  -> Some Left
     | ConsoleKey.RightArrow -> Some Right
     | _                     -> None
+let (|ExitKey|) = function ConsoleKey.Escape -> Some () | _ -> None
 
 let moveTo state move =
     let { x = x; y = y } = state.robot.position
