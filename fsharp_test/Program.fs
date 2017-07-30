@@ -8,7 +8,7 @@ type State = { robot: Robot; board: Board }
 type Action = Place of Position | Move of Move
 type KeyAction = 
     | ArrowKey of Move
-    | ExitKey
+    | ExitKey of ConsoleKey
     | InvalidKey
 
 let flip f x y = f y x
