@@ -6,7 +6,7 @@ type Robot = { position: Position }
 type Board = { size: Position }
 type State = { robot: Robot; board: Board }
 type Action = Place of Position | Move of Move
-type KeyAction = 
+type KeyAction =
     | ArrowKey of Move
     | ExitKey of ConsoleKey
     | InvalidKey
@@ -34,9 +34,9 @@ let moveTo state move =
     let moveY newY = { state with robot = { position = { x = x; y = newY } } }
     let moveX newX = { state with robot = { position = { x = newX; y = y } } }
     match move with
-    | Up    & ValidUp (inc y, maxY) newY 
+    | Up    & ValidUp (inc y, maxY) newY
     | Down  & ValidDown (dec y, 0) newY        -> moveY newY
-    | Left  & ValidLeft (dec x, 0) newX  
+    | Left  & ValidLeft (dec x, 0) newX
     | Right & ValidRight (inc x, maxX) newX    -> moveX newX
     | _                                        -> state
 
@@ -46,19 +46,19 @@ let main argv =
     let board: Board = { size = { x = 4; y = 4 } }
     let initialState = { robot = robot; board = board }
 
-    let rec game (state: State) =
+    let rec gameLoop (state: State) =
         match Console.ReadKey(true).Key with
         | ArrowKey direction -> printfn "%s" (string direction)
-                                moveTo state direction |> game
+                                moveTo state direction |> gameLoop
         | ConsoleKey.Escape  -> printfn "exiting"
                                 state
         | _                  -> printfn "wrong input"
-                                game state
+                                gameLoop state
 
     printfn ""
     printfn "> Use arrow keys to move the robot"
     printfn "> Exit at any time by pressing ESC key"
     printfn ""
-    let result = game initialState
+    let result = gameLoop initialState
     printfn "%A" result.robot.position
     0
