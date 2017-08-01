@@ -26,7 +26,7 @@ let (|ArrowKey|_|) = function
     | ConsoleKey.LeftArrow  -> Some Left
     | ConsoleKey.RightArrow -> Some Right
     | _                     -> None
-let (|ExitKey|) = function ConsoleKey.Escape -> Some () | _ -> None
+let (|ExitKey|_|) = function | ConsoleKey.Escape -> Some () | _ -> None
 
 let moveTo state move =
     let { x = x; y = y } = state.robot.position
@@ -50,7 +50,7 @@ let main argv =
         match Console.ReadKey(true).Key with
         | ArrowKey direction -> printfn "%s" (string direction)
                                 moveTo state direction |> game
-        | ConsoleKey.Escape  -> printfn "exiting"
+        | ExitKey            -> printfn "exiting"
                                 state
         | _                  -> printfn "wrong input"
                                 game state
