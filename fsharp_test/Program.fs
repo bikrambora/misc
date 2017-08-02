@@ -9,7 +9,7 @@ type Action = Place of Position | Move of Move
 type KeyAction =
     | ArrowKey of Move
     | ExitKey of ConsoleKey
-    | InvalidKey
+    | InvalidKey of ConsoleKey
 
 let flip f x y = f y x
 let inc = (+) 1
@@ -20,13 +20,13 @@ let (|ValidDown|_|) (newY:int, minY:int) (_:Move) = if newY >= minY then Some ne
 let (|ValidLeft|_|) (newX:int, minX:int) (_:Move) = if newX >= minX then Some newX else None
 let (|ValidRight|_|) (newX:int, maxX:int) (_:Move) = if newX <= maxX then Some newX else None
 
-let (|ArrowKey|_|) = function
-    | ConsoleKey.UpArrow    -> Some Up
-    | ConsoleKey.DownArrow  -> Some Down
-    | ConsoleKey.LeftArrow  -> Some Left
-    | ConsoleKey.RightArrow -> Some Right
-    | _                     -> None
-let (|ExitKey|_|) = function | ConsoleKey.Escape -> Some () | _ -> None
+let (|ArrowKey|ExitKey|InvalidKey|) = function
+    | ConsoleKey.UpArrow    -> ArrowKey Up
+    | ConsoleKey.DownArrow  -> ArrowKey Down
+    | ConsoleKey.LeftArrow  -> ArrowKey Left
+    | ConsoleKey.RightArrow -> ArrowKey Right
+    | ConsoleKey.Escape     -> ExitKey
+    | _                     -> InvalidKey
 
 let moveTo state move =
     let { x = x; y = y } = state.robot.position
@@ -52,7 +52,7 @@ let main argv =
                                 moveTo state direction |> gameLoop
         | ExitKey            -> printfn "exiting"
                                 state
-        | _                  -> printfn "wrong input"
+        | InvalidKey | _     -> printfn "wrong input"
                                 gameLoop state
 
     printfn ""
