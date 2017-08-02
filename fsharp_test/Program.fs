@@ -52,7 +52,7 @@ let main argv =
                                 moveTo state direction |> gameLoop
         | ExitKey            -> printfn "exiting"
                                 state
-        | InvalidKey | _     -> printfn "wrong input"
+        | InvalidKey         -> printfn "wrong input"
                                 gameLoop state
 
     printfn ""
