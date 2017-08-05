@@ -20,6 +20,8 @@ let (|ValidDown|_|) (newY:int, minY:int) (_:Move) = if newY >= minY then Some ne
 let (|ValidLeft|_|) (newX:int, minX:int) (_:Move) = if newX >= minX then Some newX else None
 let (|ValidRight|_|) (newX:int, maxX:int) (_:Move) = if newX <= maxX then Some newX else None
 
+let (|ValidMove|) (position:int, bound:int) = position <= bound && position >= bound
+
 let (|ArrowKey|ExitKey|InvalidKey|) = function
     | ConsoleKey.UpArrow    -> ArrowKey Up
     | ConsoleKey.DownArrow  -> ArrowKey Down
@@ -34,7 +36,7 @@ let moveTo state move =
     let moveY newY = { state with robot = { position = { x = x; y = newY } } }
     let moveX newX = { state with robot = { position = { x = newX; y = y } } }
     match move with
-    | Up    & ValidUp (inc y, maxY) newY
+    | Up    when inc y <=  maxY                -> moveY (inc y)
     | Down  & ValidDown (dec y, 0) newY        -> moveY newY
     | Left  & ValidLeft (dec x, 0) newX
     | Right & ValidRight (inc x, maxX) newX    -> moveX newX
