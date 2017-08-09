@@ -15,7 +15,8 @@ let flip f x y = f y x
 let inc = (+) 1
 let dec = flip (-) 1
 
-let (|ValidMove|_|) (position:int, min:int, max:int) (_:Move) = if position >= min && position <= max then Some position else None
+let (|ValidMove|_|) (position:int, min:int, max:int) (_:Move) =
+    if position >= min && position <= max then Some position else None
 
 let (|ArrowKey|ExitKey|InvalidKey|) = function
     | ConsoleKey.UpArrow    -> ArrowKey Up
@@ -56,6 +57,7 @@ let main argv =
     printfn "> Use arrow keys to move the robot"
     printfn "> Exit at any time by pressing ESC key"
     printfn ""
+
     let result = gameLoop initialState
     printfn "%A" result.robot.position
     0
