@@ -4,8 +4,12 @@ type Move = Up | Down | Left | Right
 type Position = { x: int; y: int }
 type Robot = { position: Position }
 type Board = { size: Position }
-type State = { robot: Robot; board: Board }
-type Action = Place of Position | Move of Move
+type State = {
+    robot: Robot; 
+    board: Board}
+type Action = 
+    | Place of Position 
+    | Move of Move
 type KeyAction =
     | ArrowKey of Move
     | ExitKey
