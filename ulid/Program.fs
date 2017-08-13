@@ -3,15 +3,20 @@
 let encoding        = "0123456789ABCDEFGHJKMNPQRSTVWXYZ"
 let encodingLength  = 32UL
 
+let (|Positive|NotPositive|) num =
+    match num > 0 with
+    | true -> Positive
+    | _    -> NotPositive
+
 let concatEncoding pos =
     List.fold (fun acc ele -> acc + (encoding.Chars ele).ToString()) "" pos
 
 let rec testy (now:uint64) len positions =
     match len with
-    | x when x > 0 -> let pos = now % 32UL
-                      let acc = (now - pos) / 32UL
-                      testy acc (len - 1) ((Convert.ToInt32 pos)::positions)
-    | _ -> positions
+    | Positive    -> let pos = now % 32UL
+                     let acc = (now - pos) / 32UL
+                     testy acc (len - 1) ((Convert.ToInt32 pos)::positions)
+    | NotPositive -> positions
 
 [<EntryPoint>]
 let main argv =
