@@ -8,18 +8,21 @@ let (|Positive|NotPositive|) num =
     | true -> Positive
     | _    -> NotPositive
 
-let concatEncoding pos =
-    List.fold (fun acc ele -> acc + (encoding.Chars ele).ToString()) "" pos
+let concatEncoding chars =
+    List.fold (fun acc char -> acc + (encoding.Chars char).ToString()) "" chars
 
-let rec encodeTime (now:uint64) len positions =
-    match len with
-    | Positive    -> let pos = now % 32UL
-                     let acc = (now - pos) / 32UL
-                     encodeTime acc (len - 1) ((Convert.ToInt32 pos)::positions)
-    | NotPositive -> positions
+let encodeTime timestamp length =
+    let rec loop ts len chars =
+        match len with
+        | Positive    -> let char = ts % 32UL
+                         let acc = (ts - char) / 32UL
+                         loop acc (len - 1) ((Convert.ToInt32 char)::chars)
+        | NotPositive -> chars
+
+    loop timestamp length []
 
 [<EntryPoint>]
 let main argv =
-    let q = encodeTime 1470118279201UL 8 [] |> concatEncoding
+    let q = encodeTime 1470118279201UL 8 |> concatEncoding
     printfn "%s" q
     0
