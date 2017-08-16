@@ -23,6 +23,7 @@ let encodeTime timestamp length =
 
 [<EntryPoint>]
 let main argv =
-    let q = [(1470118279201UL, 8); (1470118279201UL, 8)] |> List.map(fun tpl -> encodeTime 1470118279201UL 8) |> List.map concatEncoding
-    printfn "%A" q
+    [(1470118279201UL, 8); (1469918176385UL, 10); (1470264322240UL, 12)]
+        |> List.map ((fun (ts, len) -> encodeTime ts len) >> concatEncoding)
+        |> List.iter (printfn "%s")
     0
