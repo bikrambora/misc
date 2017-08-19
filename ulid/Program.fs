@@ -14,7 +14,7 @@ let concatEncoding chars =
 let encodeRandom length =
     let rnd = System.Random();
     [1..length]
-        |> List.map(fun _ -> rnd.Next(1, 32))
+        |> List.map(fun _ -> rnd.Next(0, 31))
 
 let encodeTime timestamp length =
     let rec loop ts len chars =
