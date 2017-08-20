@@ -1,5 +1,8 @@
 ﻿open System
 
+type DateTime with
+    static member UnixTimestamp = Convert.ToUInt64 (DateTime.UtcNow.Subtract(DateTime(1970, 1, 1)).TotalSeconds)
+
 let encoding        = "0123456789ABCDEFGHJKMNPQRSTVWXYZ"
 let encodingLength  = 32UL
 
@@ -26,12 +29,20 @@ let encodeTime timestamp length =
 
     loop timestamp length []
 
+type Ulid =
+    static member private Generate timestamp =
+        let time = encodeTime timestamp 10 |> concatEncoding
+        let rnd  = encodeRandom 16 |> concatEncoding
+        time + rnd
+
+    static member FromTimestamp timestamp =
+        Ulid.Generate timestamp
+
+    static member New =
+        Ulid.Generate DateTime.UnixTimestamp    
+
 [<EntryPoint>]
 let main argv =
-    let q = [(1470118279201UL, 8); (1469918176385UL, 10); (1470264322240UL, 12)]
-                |> List.map ((fun (ts, len) -> encodeTime ts len) >> concatEncoding)
-                //|> List.iter (printfn "%s")
-                |> List.head
-    let ran = encodeRandom 8 |> concatEncoding
-    printfn "%s" (q + ran)
+    printfn "%s" (Ulid.New)
+    printfn "%s" (Ulid.FromTimestamp 1469918176385UL)
     0
