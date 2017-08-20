@@ -1,7 +1,5 @@
-﻿open System
-
-type DateTime with
-    static member UnixTimestamp = Convert.ToUInt64 (DateTime.UtcNow.Subtract(DateTime(1970, 1, 1)).TotalSeconds)
+﻿open Extensions.Date
+open System
 
 let encoding        = "0123456789ABCDEFGHJKMNPQRSTVWXYZ"
 let encodingLength  = 32UL
@@ -15,9 +13,8 @@ let concatEncoding chars =
     List.fold (fun acc char -> acc + (encoding.Chars char).ToString()) "" chars
 
 let encodeRandom length =
-    let rnd = System.Random();
-    [1..length]
-        |> List.map(fun _ -> rnd.Next(0, 31))
+    let rnd = Random();
+    List.init length (fun _ -> rnd.Next(0, 31))
 
 let encodeTime timestamp length =
     let rec loop ts len chars =
@@ -39,7 +36,7 @@ type Ulid =
         Ulid.Generate timestamp
 
     static member New =
-        Ulid.Generate DateTime.UnixTimestamp    
+        Ulid.Generate DateTime.UnixTimestamp
 
 [<EntryPoint>]
 let main argv =
