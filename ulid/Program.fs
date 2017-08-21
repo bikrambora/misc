@@ -36,7 +36,7 @@ type Ulid =
         Ulid.Generate timestamp
 
     static member New =
-        Ulid.Generate DateTime.UnixTimestamp
+        Ulid.Generate DateTime.UnixTime
 
 [<EntryPoint>]
 let main argv =
