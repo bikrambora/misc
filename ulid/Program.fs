@@ -2,7 +2,7 @@
 open System
 
 let encoding        = "0123456789ABCDEFGHJKMNPQRSTVWXYZ"
-let encodingLength  = 32UL
+let encodingLength  = 32L
 
 let (|Positive|NotPositive|) num =
     match num > 0 with
@@ -19,8 +19,8 @@ let encodeRandom length =
 let encodeTime timestamp length =
     let rec loop ts len chars =
         match len with
-        | Positive    -> let char = ts % 32UL
-                         let acc = (ts - char) / 32UL
+        | Positive    -> let char = ts % 32L
+                         let acc = (ts - char) / 32L
                          loop acc (len - 1) ((Convert.ToInt32 char)::chars)
         | NotPositive -> chars
 
@@ -41,5 +41,5 @@ type Ulid =
 [<EntryPoint>]
 let main argv =
     printfn "%s" (Ulid.New)
-    printfn "%s" (Ulid.FromTimestamp 1469918176385UL)
+    printfn "%s" (Ulid.FromTimestamp 1469918176385L)
     0
