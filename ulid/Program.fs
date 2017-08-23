@@ -1,4 +1,4 @@
-﻿open Extensions.Date
+﻿open Extensions
 open System
 
 let encoding        = "0123456789ABCDEFGHJKMNPQRSTVWXYZ"
@@ -19,8 +19,8 @@ let encodeRandom length =
 let encodeTime timestamp length =
     let rec loop ts len chars =
         match len with
-        | Positive    -> let char = ts % 32L
-                         let acc = (ts - char) / 32L
+        | Positive    -> let char = ts % encodingLength
+                         let acc = (ts - char) / encodingLength
                          loop acc (len - 1) ((Convert.ToInt32 char)::chars)
         | NotPositive -> chars
 
