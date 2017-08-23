@@ -2,6 +2,7 @@ namespace Extensions
 
 open System
 
+[<AutoOpen>]
 module Date =
     type DateTime with
         static member UnixTime =
