@@ -1,4 +1,4 @@
-namespace Extensions
+namespace Ulid.Extensions
 
 open System
 
