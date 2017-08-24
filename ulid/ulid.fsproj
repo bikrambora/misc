@@ -6,8 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="Extensions.fs" />
-    <Compile Include="Program.fs" />    
+    <Compile Include="Extensions.fs" />    
+    <Compile Include="Ulid.fs" />
+    <Compile Include="zProgram.fs" /> 
   </ItemGroup>
 
   <ItemGroup>
