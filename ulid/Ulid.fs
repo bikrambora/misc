@@ -17,9 +17,9 @@ module Ulid =
     let concatEncoding chars =
         List.fold (fun acc char -> acc + (encoding.Chars char).ToString()) "" chars
 
-    let encodeRandom length rndMin rndMax =
+    let encodeRandom length min max =
         let rnd = Random();
-        List.init length (fun _ -> rnd.Next(rndMin, rndMax))
+        List.init length (fun _ -> rnd.Next(min,max))
 
     let encodeTime timestamp length =
         let rec loop ts len chars =
