@@ -17,9 +17,10 @@ module Ulid =
     let concatEncoding chars =
         List.fold (fun acc char -> acc + (encoding.Chars char).ToString()) "" chars
 
-    let encodeRandom length min max =
-        let rnd = Random();
-        List.init length (fun _ -> rnd.Next(min,max))
+    let randoms length min max =
+        Random().GetSequence(min, max)
+            |> Seq.take length
+            |> Seq.toList
 
     let encodeTime timestamp length =
         let rec loop ts len chars =
@@ -33,9 +34,9 @@ module Ulid =
 
     type Ulid =
         static member private Generate timestamp =
-            let time = encodeTime timestamp 10 |> concatEncoding
-            let rnd  = encodeRandom 16 0 31 |> concatEncoding
-            time + rnd
+            let timePart = encodeTime timestamp 10 |> concatEncoding
+            let randomPart  = randoms 16 0 31 |> concatEncoding
+            timePart + randomPart
 
         static member FromTimestamp timestamp =
             Ulid.Generate timestamp
