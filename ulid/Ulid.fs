@@ -33,7 +33,11 @@ module Ulid =
         loop timestamp length []
 
 
-    type Ulid =
+    type Ulid private (value:string) =
+        member self.Value with get() = value
+
+        override self.ToString() = value
+
         static member private Generate timestamp =
             let timePart    = encodeTime timestamp 10
             let randomPart  = randoms 16 0 31
@@ -41,7 +45,7 @@ module Ulid =
                 |> concatEncoding
 
         static member FromTimestamp timestamp =
-            Ulid.Generate timestamp
+            timestamp |> Ulid.Generate |> Ulid
 
         static member New =
-            Ulid.Generate DateTime.UnixTime
+            DateTime.UnixTime |> Ulid.Generate |> Ulid
