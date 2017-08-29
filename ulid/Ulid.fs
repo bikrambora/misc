@@ -33,7 +33,7 @@ module Ulid =
         loop timestamp length []
 
 
-    type Ulid private (value:string) =
+    type Ulid private (value) =
         member self.Value with get() = value
 
         override self.ToString() = value
