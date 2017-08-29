@@ -3,6 +3,6 @@ open System
 
 [<EntryPoint>]
 let main argv =
-    printfn "%s" (Ulid.New)
-    printfn "%s" (Ulid.FromTimestamp 1469918176385L)
+    printfn "%A" (Ulid.New)
+    printfn "%A" (Ulid.FromTimestamp 1469918176385L)
     0
