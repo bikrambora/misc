@@ -11,11 +11,9 @@ open FSharp.Data
 //     | _, Some str -> printfn "%s" ("Hello " + str)
 //     | _, _ -> printfn "No matching type"
 
-// type Post = JsonProvider<"""{ "userId": 1, "id": 1, "title": "string", "body": "string"}""">
+type Post = JsonProvider<"""{ "userId": 1, "id": 1, "title": "string", "body": "string"}""">
 async {
-    //System.Net.ServicePointManager.ServerCertificateValidationCallback += (o, certificate, chain, errors) => true;
-    let req = System.Net.WebRequest.Create("https://jsonplaceholder.typicode.com/posts/1")
-    let! res = req.AsyncGetResponse()
-    printfn "%d" res.ContentLength
-} |> Async.RunSynchronously
+    let! post = Post.AsyncLoad("https://jsonplaceholder.typicode.com/posts/1")
+    printfn "%s" post.Body
+} |> Async.Start
 System.Console.ReadLine()
