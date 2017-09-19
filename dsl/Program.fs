@@ -6,7 +6,6 @@ let test p str =
     | Success(result, _, state) -> printfn "Success: %A - State: %A" result state
     | Failure(error, _, _) -> printfn "Failure: %A" error
 
-let between pBegin pEnd p  = pBegin >>. p .>> pEnd
 let betweenStrings str1 str2 p = p |> between (pstring str1) (pstring str2)
 let floatBetweenBrackets = pfloat |> betweenStrings "[" "]"
 
