@@ -10,4 +10,5 @@ let test p str =
 let main argv =
     test pfloat "3.2"
     test pint32 "3.4"
+    test pfloat "3ee"
     0
