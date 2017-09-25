@@ -11,7 +11,7 @@ open FSharp.Data
 //     | _, Some str -> printfn "%s" ("Hello " + str)
 //     | _, _ -> printfn "No matching type"
 
-type Post = JsonProvider<"""{ "userId": "1", "id": "1", "title": "string", "body": "string"}""">
+type Post = JsonProvider<"./post.json">
 async {
     try
         let! post = Post.AsyncLoad("https://jsonplaceholder.typicode.com/posts/2")
