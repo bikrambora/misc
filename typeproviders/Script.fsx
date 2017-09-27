@@ -2,16 +2,14 @@
 
 open FSharp.Data
 
-// type json = JsonProvider<"""[{ "name": "l" }, { "name": 23 }]""">
+type MultipleValuesPost = JsonProvider<"""[{ "name": "world" }, { "name": 23 }, { "name": [] }]""">
+for post in MultipleValuesPost.GetSamples() do
+    match post.Name.Number, post.Name.String with
+    | Some num, _ -> printfn "%d" (num + 1)
+    | _, Some str -> printfn "%s" ("Hello " + str)
+    | _           -> printfn "No matching type"
 
-// let j = json.GetSamples() |> Seq.last
-
-// match j.Name.Number, j.Name.String with
-//     | Some num, _ -> printfn "%d" (num + 1)
-//     | _, Some str -> printfn "%s" ("Hello " + str)
-//     | _, _ -> printfn "No matching type"
-
-type Post = JsonProvider<"""{ "userId": "1", "id": "1", "title": "string", "body": "string"}""">
+type Post = JsonProvider<"./post.json">
 async {
     try
         let! post = Post.AsyncLoad("https://jsonplaceholder.typicode.com/posts/2")
