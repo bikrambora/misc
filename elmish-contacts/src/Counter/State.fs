@@ -9,7 +9,7 @@ let init () : Model * Cmd<Msg> =
 let update msg model =
   match msg with
   | Increment ->
-      model + 1, []
+      model + 2, []
   | Decrement ->
       model - 1, []
   | Reset ->
