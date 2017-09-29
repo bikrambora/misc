@@ -37,8 +37,8 @@ let init result =
 let update msg model =
   match msg with
   | CounterMsg msg ->
-      let (counter, counterCmd) = Counter.State.update msg model.counter.count
-      { model with counter = { count = counter } }, Cmd.map CounterMsg counterCmd
+      let (counter, counterCmd) = Counter.State.update msg model.counter
+      { model with counter = counter }, Cmd.map CounterMsg counterCmd
   | HomeMsg msg ->
       let (home, homeCmd) = Home.State.update msg model.home
       { model with home = home }, Cmd.map HomeMsg homeCmd

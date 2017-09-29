@@ -9,8 +9,8 @@ let init () : Model * Cmd<Msg> =
 let update msg model =
   match msg with
   | Increment ->
-      model + 2, []
+      { model with count = model.count + 2 }, []
   | Decrement ->
-      model - 1, []
+      { model with count = model.count - 1 }, []
   | Reset ->
-      0, []
+      { model with count = 0 }, []
