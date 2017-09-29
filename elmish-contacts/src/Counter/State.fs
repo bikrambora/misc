@@ -4,7 +4,7 @@ open Elmish
 open Types
 
 let init () : Model * Cmd<Msg> =
-  { count = 0 }, []
+  { count = 0 }, Cmd.none
 
 let update msg model =
   match msg with
