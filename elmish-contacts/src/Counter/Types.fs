@@ -1,6 +1,8 @@
 module Counter.Types
 
-type Model = int
+type Model = {
+    count: int
+}
 
 type Msg =
   | Increment

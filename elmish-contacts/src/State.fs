@@ -28,7 +28,7 @@ let init result =
   let (model, cmd) =
     urlUpdate result
       { currentPage = Home
-        counter = { count = counter }
+        counter = counter
         home = home }
   model, Cmd.batch [ cmd
                      Cmd.map CounterMsg counterCmd
