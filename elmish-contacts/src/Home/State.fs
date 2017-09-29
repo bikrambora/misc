@@ -21,8 +21,8 @@ let update msg model : Model * Cmd<Msg> =
   | ChangeStr str ->
       str, []
   | FetchedPost post ->
-      printfn "%A" post
+      printfn "success: %A" post
       "", []
   | FetchError err ->
-      printfn "%A" err
+      printfn "error: %A" err
       "", []
