@@ -41,7 +41,7 @@ let root model dispatch =
   let pageHtml =
     function
     | Page.About -> Info.View.root
-    | Counter -> Counter.View.root model.counter.count (CounterMsg >> dispatch)
+    | Counter -> Counter.View.root model.counter (CounterMsg >> dispatch)
     | Home -> Home.View.root model.home (HomeMsg >> dispatch)
 
   div
