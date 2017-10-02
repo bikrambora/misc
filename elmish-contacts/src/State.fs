@@ -25,14 +25,17 @@ let urlUpdate (result: Option<Page>) model =
 let init result =
   let (counter, counterCmd) = Counter.State.init()
   let (home, homeCmd) = Home.State.init()
+  let (a, b) = Users.State.init()
   let (model, cmd) =
     urlUpdate result
       { currentPage = Home
         counter = counter
-        home = home }
+        home = home
+        users = a }
   model, Cmd.batch [ cmd
                      Cmd.map CounterMsg counterCmd
-                     Cmd.map HomeMsg homeCmd ]
+                     Cmd.map HomeMsg homeCmd
+                     Cmd.map UsersMsg b ]
 
 let update msg model =
   match msg with
@@ -42,3 +45,6 @@ let update msg model =
   | HomeMsg msg ->
       let (home, homeCmd) = Home.State.update msg model.home
       { model with home = home }, Cmd.map HomeMsg homeCmd
+  | UsersMsg msg ->
+      let (a, b) = Users.State.update msg model.users
+      { model with users = a }, Cmd.map UsersMsg b

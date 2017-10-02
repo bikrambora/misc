@@ -14,7 +14,7 @@ let testFetch =
     Cmd.ofPromise fetchTest "https://jsonplaceholder.typicode.com/posts/2" FetchedPost FetchError
 
 let init () : Model * Cmd<Msg> =
-  "", testFetch
+  "", Cmd.none
 
 let update msg model : Model * Cmd<Msg> =
   match msg with

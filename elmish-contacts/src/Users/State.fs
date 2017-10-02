@@ -1,11 +1,17 @@
 module Users.State
 
 open Elmish
-//open Types
 open Fable.PowerPack
 open Fable.PowerPack.Fetch
 
-type User = { name: string }
+type User = {
+    id: int;
+    name: string;
+    username: string;
+    email: string;
+    phone: string;
+    website: string;
+}
 type Model = string
 type Msg =
     | FetchedUsers of User list
@@ -25,7 +31,7 @@ let init () : Model * Cmd<Msg> =
 let update msg model : Model * Cmd<Msg> =
   match msg with
   | FetchedUsers users ->
-      printfn "success: %A" users
+      printfn "success: %A" (users |> List.head)
       "", []
   | FetchError err ->
       printfn "error: %A" err
