@@ -4,6 +4,12 @@ open Elmish
 open Fable.PowerPack
 open Fable.PowerPack.Fetch
 
+type UserAddress = {
+    street: string;
+    suite: string;
+    city: string;
+    zipcode: string;
+}
 type User = {
     id: int;
     name: string;
@@ -11,6 +17,7 @@ type User = {
     email: string;
     phone: string;
     website: string;
+    address: UserAddress;
 }
 type Model = string
 type Msg =
