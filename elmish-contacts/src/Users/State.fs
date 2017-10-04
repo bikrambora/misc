@@ -4,21 +4,23 @@ open Elmish
 open Fable.PowerPack
 open Fable.PowerPack.Fetch
 
-type UserAddress = {
-    street: string;
-    suite: string;
-    city: string;
-    zipcode: string;
-}
-type User = {
-    id: int;
-    name: string;
-    username: string;
-    email: string;
-    phone: string;
-    website: string;
-    address: UserAddress;
-}
+type Geo =
+    {lat: string;
+     lng: string}
+type UserAddress = 
+    {street: string;
+     suite: string;
+     city: string;
+     zipcode: string;
+     geo: Geo}
+type User =
+    {id: int;
+     name: string;
+     username: string;
+     email: string;
+     phone: string;
+     website: string;
+     address: UserAddress;}
 type Model = string
 type Msg =
     | FetchedUsers of User list
