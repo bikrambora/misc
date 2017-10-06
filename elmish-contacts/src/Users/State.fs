@@ -7,12 +7,16 @@ open Fable.PowerPack.Fetch
 type Geo =
     {lat: string;
      lng: string}
-type UserAddress = 
+type Address = 
     {street: string;
      suite: string;
      city: string;
      zipcode: string;
      geo: Geo}
+type Company =
+    {name: string;
+     catchPhrase: string;
+     bs: string}
 type User =
     {id: int;
      name: string;
@@ -20,7 +24,8 @@ type User =
      email: string;
      phone: string;
      website: string;
-     address: UserAddress;}
+     address: Address;
+     company: Company}
 type Model = string
 type Msg =
     | FetchedUsers of User list
