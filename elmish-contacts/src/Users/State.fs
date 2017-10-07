@@ -36,11 +36,11 @@ let fetchUsers url =
         return! fetchAs<User list> url []
     }
 
-let testFetch =
+let usersFetch =
     Cmd.ofPromise fetchUsers "https://jsonplaceholder.typicode.com/users" FetchedUsers FetchError
 
 let init () : Model * Cmd<Msg> =
-  "", testFetch
+  "", usersFetch
 
 let update msg model : Model * Cmd<Msg> =
   match msg with
