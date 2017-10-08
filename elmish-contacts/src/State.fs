@@ -12,6 +12,7 @@ let pageParser: Parser<Page->Page,Page> =
     map About (s "about")
     map Counter (s "counter")
     map Home (s "home")
+    map Users (s "users")
   ]
 
 let urlUpdate (result: Option<Page>) model =
@@ -25,17 +26,17 @@ let urlUpdate (result: Option<Page>) model =
 let init result =
   let (counter, counterCmd) = Counter.State.init()
   let (home, homeCmd) = Home.State.init()
-  let (a, b) = Users.State.init()
+  let (users, usersCmd) = Users.State.init()
   let (model, cmd) =
     urlUpdate result
       { currentPage = Home
         counter = counter
         home = home
-        users = a }
+        users = users }
   model, Cmd.batch [ cmd
                      Cmd.map CounterMsg counterCmd
                      Cmd.map HomeMsg homeCmd
-                     Cmd.map UsersMsg b ]
+                     Cmd.map UsersMsg usersCmd ]
 
 let update msg model =
   match msg with
@@ -46,5 +47,5 @@ let update msg model =
       let (home, homeCmd) = Home.State.update msg model.home
       { model with home = home }, Cmd.map HomeMsg homeCmd
   | UsersMsg msg ->
-      let (a, b) = Users.State.update msg model.users
-      { model with users = a }, Cmd.map UsersMsg b
+      let (users, usersCmd) = Users.State.update msg model.users
+      { model with users = users }, Cmd.map UsersMsg usersCmd

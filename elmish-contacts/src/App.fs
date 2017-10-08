@@ -34,6 +34,7 @@ let menu currentPage =
         [ ClassName "menu-list" ]
         [ menuItem "Home" Home currentPage
           menuItem "Counter sample" Counter currentPage
+          menuItem "Users" Users currentPage
           menuItem "About" Page.About currentPage ] ]
 
 let root model dispatch =
@@ -43,6 +44,7 @@ let root model dispatch =
     | Page.About -> Info.View.root
     | Counter -> Counter.View.root model.counter (CounterMsg >> dispatch)
     | Home -> Home.View.root model.home (HomeMsg >> dispatch)
+    | Users -> Users.State.root model.users (UsersMsg >> dispatch)
 
   div
     []
