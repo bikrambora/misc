@@ -1,6 +1,7 @@
 module Users.State
 
 open Elmish
+open Fable.Import
 open Fable.PowerPack
 open Fable.PowerPack.Fetch
 open Fable.Helpers.React
@@ -9,7 +10,7 @@ open Fable.Helpers.React.Props
 type Geo =
     {lat: string;
      lng: string}
-type Address = 
+type Address =
     {street: string;
      suite: string;
      city: string;
@@ -45,13 +46,30 @@ let usersFetch =
 let init () : Model * Cmd<Msg> =
   { users = [] }, usersFetch
 
+open Fable.Core.JsInterop
+open Fable.Helpers.React.Props
+open Elmish.React
+
+let userName (user:User) =
+    div [] [str user.name]
+
+let placeholder msg =
+    div [] [ str msg ]
+
 let root model dispatch =
     match model.users with
     | [] ->
-        div [] [ str "No users found" ]
+        section [] [
+            lazyView placeholder "No users found"
+        ]
     | _ ->
-        div [] [ str "Has users" ]
-let update msg (model:Model) : Model * Cmd<Msg> =
+        section [] [
+            ul []
+                (model.users
+                |> List.map (fun u -> lazyView placeholder u.name))
+        ]
+
+let update msg model : Model * Cmd<Msg> =
   match msg with
   | FetchedUsers users ->
       printfn "success: %A" (users |> List.head)
