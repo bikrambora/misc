@@ -50,24 +50,31 @@ open Fable.Core.JsInterop
 open Fable.Helpers.React.Props
 open Elmish.React
 
-let userName (user:User) =
-    div [] [str user.name]
-
 let placeholder msg =
     div [] [ str msg ]
 
+let viewUsername user =
+    lazyView placeholder user.name
+
+let viewNoUsers msg =
+    section [] [
+        lazyView placeholder msg
+    ]
+
+let viewUsernames users =
+    section [] [
+        ul []
+            (users |> List.map(viewUsername))
+    ]
+
+let (|NoUsers|Users|) = function
+    | [] -> NoUsers
+    | _  -> Users
+
 let root model dispatch =
     match model.users with
-    | [] ->
-        section [] [
-            lazyView placeholder "No users found"
-        ]
-    | _ ->
-        section [] [
-            ul []
-                (model.users
-                |> List.map (fun u -> lazyView placeholder u.name))
-        ]
+    | NoUsers -> viewNoUsers "No users found"
+    | Users   -> viewUsernames model.users
 
 let update msg model : Model * Cmd<Msg> =
   match msg with
