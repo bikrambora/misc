@@ -4,8 +4,8 @@ open Elmish
 open Fable.Import
 open Fable.PowerPack
 open Fable.PowerPack.Fetch
-open Fable.Helpers.React
 open Fable.Helpers.React.Props
+module R = Fable.Helpers.React
 
 type Geo =
     {lat: string;
@@ -51,19 +51,19 @@ open Fable.Helpers.React.Props
 open Elmish.React
 
 let placeholder msg =
-    div [] [ str msg ]
+    R.div [] [ R.str msg ]
 
 let viewUsername user =
     lazyView placeholder user.name
 
 let viewNoUsers msg =
-    section [] [
+    R.section [] [
         lazyView placeholder msg
     ]
 
 let viewUsernames users =
-    section [] [
-        ul []
+    R.section [] [
+        R.ul []
             (users |> List.map(viewUsername))
     ]
 
