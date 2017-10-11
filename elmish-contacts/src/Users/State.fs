@@ -82,7 +82,11 @@ let update msg model : Model * Cmd<Msg> =
   match msg with
   | FetchUsersSuccess users ->
       printfn "success: %A" (users |> List.head)
-      { model with users = users; error = false }, []
-  | FetchUsersError err ->
-      printfn "error: %A" err
-      { model with error = true; users = [] }, []
+      {model with
+        users = users;
+        error = false}, []
+  | FetchUsersError ex ->
+      printfn "error: %A" ex
+      {model with
+        error = true;
+        users = []}, []
