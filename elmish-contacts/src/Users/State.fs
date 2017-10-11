@@ -30,10 +30,11 @@ type User =
      address: Address;
      company: Company}
 type Model =
-    {users: User list}
+    {users: User list;
+     error: bool}
 type Msg =
-    | FetchedUsers of User list
-    | FetchError of System.Exception
+    | FetchUsersSuccess of User list
+    | FetchUsersError of System.Exception
 
 let fetchUsers url =
     promise {
@@ -41,10 +42,10 @@ let fetchUsers url =
     }
 
 let usersFetch =
-    Cmd.ofPromise fetchUsers "https://jsonplaceholder.typicode.com/users" FetchedUsers FetchError
+    Cmd.ofPromise fetchUsers "https://jsonplaceholder.typicode.com/users" FetchUsersSuccess FetchUsersError
 
 let init () : Model * Cmd<Msg> =
-  { users = [] }, usersFetch
+  { users = []; error = false }, usersFetch
 
 open Fable.Core.JsInterop
 open Fable.Helpers.React.Props
@@ -64,7 +65,7 @@ let viewNoUsers msg =
 let viewUsernames users =
     R.section [] [
         R.ul []
-            (users |> List.map(viewUsername))
+            (users |> List.map viewUsername)
     ]
 
 let (|NoUsers|Users|) = function
@@ -72,15 +73,16 @@ let (|NoUsers|Users|) = function
     | _  -> Users
 
 let root model dispatch =
-    match model.users with
-    | NoUsers -> viewNoUsers "No users found"
-    | Users   -> viewUsernames model.users
+    match model.users, model.error with
+    | (_, true)     -> viewNoUsers "Error fetching"
+    | (NoUsers, _)  -> viewNoUsers "No users found"
+    | (Users, _)    -> viewUsernames model.users
 
 let update msg model : Model * Cmd<Msg> =
   match msg with
-  | FetchedUsers users ->
+  | FetchUsersSuccess users ->
       printfn "success: %A" (users |> List.head)
-      { users = users }, []
-  | FetchError err ->
+      { model with users = users; error = false }, []
+  | FetchUsersError err ->
       printfn "error: %A" err
-      model, []
+      { model with error = true; users = [] }, []
