@@ -69,15 +69,15 @@ let viewUsernames users =
     ]
 
 let (|Error|NoUsers|Users|) = function
-    | { error = true }  -> Error("Error fetching")
-    | { users = [] }    -> NoUsers("No users found")
-    | { users = users } -> Users(users)
+    | { error = true }  -> Error "Error fetching"
+    | { users = [] }    -> NoUsers "No users found"
+    | { users = users } -> Users users
 
 let root model dispatch =
     match model with
-    | Error(msg)   -> viewNoUsers msg
-    | NoUsers(msg) -> viewNoUsers msg
-    | Users(users) -> viewUsernames users
+    | Error msg   -> viewNoUsers msg
+    | NoUsers msg -> viewNoUsers msg
+    | Users users -> viewUsernames users
 
 let update msg model : Model * Cmd<Msg> =
   match msg with
