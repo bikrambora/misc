@@ -8,7 +8,7 @@ open Fable.Core.JsInterop
 open Fable.Import
 open Fable.Import.Browser
 open Global
-open State
+open App.State
 open Types
 
 importAll "../sass/main.sass"
