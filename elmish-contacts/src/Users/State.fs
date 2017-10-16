@@ -1,14 +1,11 @@
 module User.State
 
 open Elmish
-open Elmish.React
-open Fable.Core.JsInterop
-open Fable.Helpers.React
-open Fable.Helpers.React.Props
 open Fable.Import
 open Fable.PowerPack
 open Fable.PowerPack.Fetch
 open Types
+open View
 
 let fetchUsers url =
     promise {
@@ -20,23 +17,6 @@ let usersFetch =
 
 let init () : Model * Cmd<Msg> =
   { users = []; error = false }, usersFetch
-
-let placeholder msg =
-    div [] [ str msg ]
-
-let viewUsername user =
-    lazyView placeholder user.name
-
-let viewNoUsers msg =
-    section [] [
-        lazyView placeholder msg
-    ]
-
-let viewUsernames users =
-    section [] [
-        ul []
-            (users |> List.map viewUsername)
-    ]
 
 let (|Error|NoUsers|Users|) = function
     | { error = true }  -> Error "Error fetching"
