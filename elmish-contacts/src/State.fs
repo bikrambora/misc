@@ -26,7 +26,7 @@ let urlUpdate (result: Option<Page>) model =
 let init result =
   let (counter, counterCmd) = Counter.State.init()
   let (home, homeCmd) = Home.State.init()
-  let (users, usersCmd) = Users.State.init()
+  let (users, usersCmd) = User.State.init()
   let (model, cmd) =
     urlUpdate result
       { currentPage = Home
@@ -47,5 +47,5 @@ let update msg model =
       let (home, homeCmd) = Home.State.update msg model.home
       { model with home = home }, Cmd.map HomeMsg homeCmd
   | UsersMsg msg ->
-      let (users, usersCmd) = Users.State.update msg model.users
+      let (users, usersCmd) = User.State.update msg model.users
       { model with users = users }, Cmd.map UsersMsg usersCmd

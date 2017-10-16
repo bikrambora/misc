@@ -7,9 +7,9 @@ open Fable.Core
 open Fable.Core.JsInterop
 open Fable.Import
 open Fable.Import.Browser
-open Types
-open App.State
 open Global
+open State
+open Types
 
 importAll "../sass/main.sass"
 
@@ -44,7 +44,7 @@ let root model dispatch =
     | Page.About -> Info.View.root
     | Counter -> Counter.View.root model.counter (CounterMsg >> dispatch)
     | Home -> Home.View.root model.home (HomeMsg >> dispatch)
-    | Users -> Users.State.root model.users (UsersMsg >> dispatch)
+    | Users -> User.State.root model.users (UsersMsg >> dispatch)
 
   div
     []

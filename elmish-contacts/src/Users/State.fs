@@ -1,40 +1,14 @@
-module Users.State
+module User.State
 
 open Elmish
+open Elmish.React
+open Fable.Core.JsInterop
+open Fable.Helpers.React
+open Fable.Helpers.React.Props
 open Fable.Import
 open Fable.PowerPack
 open Fable.PowerPack.Fetch
-open Fable.Helpers.React.Props
-module R = Fable.Helpers.React
-
-type Geo =
-    {lat: string;
-     lng: string}
-type Address =
-    {street: string;
-     suite: string;
-     city: string;
-     zipcode: string;
-     geo: Geo}
-type Company =
-    {name: string;
-     catchPhrase: string;
-     bs: string}
-type User =
-    {id: int;
-     name: string;
-     username: string;
-     email: string;
-     phone: string;
-     website: string;
-     address: Address;
-     company: Company}
-type Model =
-    {users: User list;
-     error: bool}
-type Msg =
-    | FetchUsersSuccess of User list
-    | FetchUsersError of System.Exception
+open Types
 
 let fetchUsers url =
     promise {
@@ -47,24 +21,20 @@ let usersFetch =
 let init () : Model * Cmd<Msg> =
   { users = []; error = false }, usersFetch
 
-open Fable.Core.JsInterop
-open Fable.Helpers.React.Props
-open Elmish.React
-
 let placeholder msg =
-    R.div [] [ R.str msg ]
+    div [] [ str msg ]
 
 let viewUsername user =
     lazyView placeholder user.name
 
 let viewNoUsers msg =
-    R.section [] [
+    section [] [
         lazyView placeholder msg
     ]
 
 let viewUsernames users =
-    R.section [] [
-        R.ul []
+    section [] [
+        ul []
             (users |> List.map viewUsername)
     ]
 
