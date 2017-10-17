@@ -1,22 +1,17 @@
 module User.State
 
 open Elmish
-open Fable.Import
-open Fable.PowerPack
-open Fable.PowerPack.Fetch
+
+open Actions
 open Types
 open View
 
-let fetchUsers url =
-    promise {
-        return! fetchAs<User list> url []
-    }
+let initialModel =
+    {users = [];
+     error = false}
 
-let usersFetch =
-    Cmd.ofPromise fetchUsers "https://jsonplaceholder.typicode.com/users" FetchUsersSuccess FetchUsersError
-
-let init () : Model * Cmd<Msg> =
-  { users = []; error = false }, usersFetch
+let init () =
+  initialModel, usersFetch
 
 let (|Error|NoUsers|Users|) = function
     | { error = true }  -> Error "Error fetching"
