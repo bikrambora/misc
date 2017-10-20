@@ -1,10 +1,9 @@
 var ENDPOINT = 'http://localhost:3000/context/';
-
-var ELEMENT_ID = 'patient_id';
+var ELEMENT_ID = 'VisibleID';
 var element = document.getElementById(ELEMENT_ID);
 var oldValue = element.value;
 
-function onInput(e) {
+function onInput() {
     var newValue = element.value;
     if(oldValue === newValue) return;
 
@@ -15,4 +14,4 @@ function onInput(e) {
     xhr.send();
 }
 
-element.addEventListener('input', onInput);
+setInterval(onInput, 500);

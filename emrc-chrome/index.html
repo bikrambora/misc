@@ -1,1 +1,197 @@
-<input id="patient_id" />
+<!doctype html>
+<html>
+<head>
+    <style type="text/css">
+        body, iframe { width:100%; height:100% }
+        iframe {
+            border:1px solid blue;
+        }
+
+        .rgRow {
+            cursor: pointer;
+        }
+    </style>
+
+    <script>
+        function selectMember(fName, lName, systemId, extId, subscriberId) {
+            document.getElementById('ExternalMemberID').value = extId;
+            document.getElementById('VisibleID').value = extId;
+
+            console.log(fName, lName, systemId, extId, subscriberId);
+        }
+    </script>
+</head>
+<body style="position:fixed;">
+    <div style="width:99%">
+        <input type='hidden' id='ExternalMemberID' name='ExternalMemberID' value=''>
+        <input width="100px" height="50px" id='VisibleID'/>
+    </div>
+    <div style="width:99%">
+        <form method="post" >
+            <div>
+                <table id="pageHeader" class="PageHeader" data-SubHeaderElementID="pageHeader_SubHeader" style="width:100%;border-collapse:collapse;">
+                    <tr style="vertical-align:middle;">
+                        <td style="padding:0 0 2px;text-align:right"></td>
+                    </tr>
+                </table><div class="Divider"></div>
+            </div>
+            <div id="SearchResult">
+                <div class="rgBottomDiv">
+                    <div class="RadAjaxPanel" id="RadAjaxPanel1Panel">
+                        <div id="RadAjaxPanel1">
+
+                            <div id="RadGridMemberSearch" class="RadGrid RadGrid_TzgGridStyle" style="height:400px;width:100%;">
+
+                                <div class="rgHeaderWrapper">
+                                    <div id="RadGridMemberSearch_GridHeader" class="rgHeaderDiv" style="overflow:hidden;">
+
+                                        <table class="rgMasterTable rgClipCells" id="RadGridMemberSearch_ctl00_Header" style="width:100%;table-layout:fixed;overflow:hidden;empty-cells:show;">
+                                            <colgroup>
+                                                <col style="width:35px" />
+                                                <col style="width:100px" />
+                                                <col style="width:100px" />
+                                                <col style="width:100px" />
+                                                <col style="width:100px" />
+                                                <col style="width:100px" />
+                                                <col style="width:100px" />
+                                                <col style="width:100px" />
+                                                <col style="width:100px" />
+                                                <col style="width:100px" />
+                                                <col style="width:100px" />
+                                                <col style="width:100px" />
+                                                <col style="width:100px;display:none;" />
+                                                <col style="width:100px;display:none;" />
+                                                <col style="width:100px;display:none;" />
+                                                <col style="width:100px;display:none;" />
+                                            </colgroup>
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col" class="rgHeader">First Name</th>
+                                                    <th scope="col" class="rgHeader">Last Name</th>
+                                                    <th scope="col" class="rgHeader">Date of Birth</th>
+                                                    <th scope="col" class="rgHeader">Subscriber ID</th>
+                                                    <th scope="col" class="rgHeader">Group ID</th>
+                                                    <th scope="col" class="rgHeader">Employer</th>
+                                                    <th scope="col" class="rgHeader">SSN</th>
+                                                    <th scope="col" class="rgHeader">Medicare #</th>
+                                                    <th scope="col" class="rgHeader">Medicaid #</th>
+                                                    <th scope="col" class="rgHeader">External System</th>
+                                                    <th scope="col" class="rgHeader">&nbsp;</th>
+                                                    <th scope="col" class="rgHeader" style="display:none;">&nbsp;</th>
+                                                    <th scope="col" class="rgHeader" style="display:none;">&nbsp;</th>
+                                                    <th scope="col" class="rgHeader" style="display:none;">&nbsp;</th>
+                                                    <th scope="col" class="rgHeader" style="display:none;">&nbsp;</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody style="display:none;"><tr><td colspan="16"></td></tr></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div id="RadGridMemberSearch_GridData" class="rgDataDiv" style="overflow-x:auto;overflow-y:auto;width:100%;height:300px;">
+
+                                    <table class="rgMasterTable rgClipCells" id="RadGridMemberSearch_ctl00" style="width:100%;table-layout:fixed;overflow:hidden;empty-cells:show;">
+                                        <colgroup>
+                                            <col style="width:35px" />
+                                            <col style="width:100px" />
+                                            <col style="width:100px" />
+                                            <col style="width:100px" />
+                                            <col style="width:100px" />
+                                            <col style="width:100px" />
+                                            <col style="width:100px" />
+                                            <col style="width:100px" />
+                                            <col style="width:100px" />
+                                            <col style="width:100px" />
+                                            <col style="width:100px" />
+                                            <col style="width:100px" />
+                                            <col style="width:100px;display:none;" />
+                                            <col style="width:100px;display:none;" />
+                                            <col style="width:100px;display:none;" />
+                                            <col style="width:100px;display:none;" />
+                                        </colgroup>
+                                        <thead style="display:none;">
+                                            <tr>
+                                                <th scope="col"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="rgRow" id="RadGridMemberSearch_ctl00__0" onclick="selectMember('231r3','Apple',25,'extid123', 'subscriberId1')">
+                                                <td>231r3</td>
+                                                <td>Apple</td>
+                                                <td>02/22/2016</td>
+                                                <td>&nbsp;</td>
+                                                <td>&nbsp;</td>
+                                                <td>&nbsp;</td>
+                                                <td>&nbsp;</td>
+                                                <td>&nbsp;</td>
+                                                <td>&nbsp;</td>
+                                                <td>Flat Files25</td>
+                                                <td></td>
+                                                <td style="display:none;">&nbsp;</td>
+                                                <td style="display:none;">6</td>
+                                                <td style="display:none;">1</td>
+                                                <td style="display:none;">0</td>
+                                            </tr>
+                                            <tr class="rgRow" id="RadGridMemberSearch_ctl00__1" onclick="selectMember('Elizabeth','Apple',19,'EAB422', '200061422')">
+                                                <td>Elizabeth</td>
+                                                <td>Apple</td>
+                                                <td>01/02/1994</td>
+                                                <td>200061422</td>
+                                                <td>HGRPGRP1</td>
+                                                <td>&nbsp;</td>
+                                                <td>&nbsp;</td>
+                                                <td>&nbsp;</td>
+                                                <td>&nbsp;</td>
+                                                <td>Facets (ext sys 19)</td>
+                                                <td></td>
+                                                <td style="display:none;">&nbsp;</td>
+                                                <td style="display:none;">4</td>
+                                                <td style="display:none;">1</td>
+                                                <td style="display:none;">1</td>
+                                            </tr>
+                                            <tr class="rgRow" id="RadGridMemberSearch_ctl00__4" onclick="selectMember('Janet','Apple',19,'11068', '100061499')">
+                                                <td>Janet</td>
+                                                <td>Apple</td>
+                                                <td>06/2/1968</td>
+                                                <td>100061499</td>
+                                                <td>HGRPGRP1</td>
+                                                <td>&nbsp;</td>
+                                                <td>110685412</td>
+                                                <td>&nbsp;</td>
+                                                <td>&nbsp;</td>
+                                                <td>Facets (ext sys 19)</td>
+                                                <td></td>
+                                                <td style="display:none;">&nbsp;</td>
+                                                <td style="display:none;">4</td>
+                                                <td style="display:none;">1</td>
+                                                <td style="display:none;">1</td>
+                                            </tr>
+                                            <tr class="rgRow" id="RadGridMemberSearch_ctl00__7" onclick="selectMember('231r3','Apple',25,'61432ABC', '300061493')">
+                                                <td>John</td>
+                                                <td>Apple</td>
+                                                <td>01/24/1936</td>
+                                                <td>300061493</td>
+                                                <td>4094246</td>
+                                                <td>CareKey</td>
+                                                <td>423061432</td>
+                                                <td>&nbsp;</td>
+                                                <td>&nbsp;</td>
+                                                <td>Flat Files25</td>
+                                                <td></td>
+                                                <td style="display:none;">&nbsp;</td>
+                                                <td style="display:none;">3</td>
+                                                <td style="display:none;">1</td>
+                                                <td style="display:none;">1</td>
+                                            </tr>
+                                        </tbody>
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
