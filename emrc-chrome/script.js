@@ -1,21 +1,18 @@
-// var oldValue = document.getElementById('patient_id').value;
+var ENDPOINT = 'http://localhost:3000/context/';
 
-// function checkIfValueChanged() {
-//     var newValue = document.getElementById('patient_id').value;
-//     if(newValue != oldValue) {
-//         //alert('value changed');
-//         var xhr = new XMLHttpRequest();
-//         //xhr.onreadystatechange = handleStateChange; // Implemented elsewhere.
-//         xhr.open("GET", 'http://localhost:3000/context/'+newValue, true);
-//         xhr.send();
-//         oldValue = newValue;
-//     }
-// }
+var ELEMENT_ID = 'patient_id';
+var element = document.getElementById(ELEMENT_ID);
+var oldValue = element.value;
 
-// setInterval(checkIfValueChanged, 500);
+function onInput(e) {
+    var newValue = element.value;
+    if(oldValue === newValue) return;
 
-document
-    .getElementById('patient_id')
-    .addEventListener('input', function(evt) {
-        console.log(evt.srcElement.value);
-    });
+    oldValue = newValue;
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', ENDPOINT + newValue, true);
+    xhr.send();
+}
+
+element.addEventListener('input', onInput);
