@@ -2,7 +2,7 @@ module User.View
 
 open Elmish.React
 module R = Fable.Helpers.React
-open Fable.Helpers.React.Props
+//open Fable.Helpers.React.Props
 open Types
 
 let placeholder msg =
@@ -11,7 +11,7 @@ let placeholder msg =
 let viewUsername user =
     lazyView placeholder user.name
 
-let viewNoUsers msg =
+let viewPlaceholder msg =
     R.section [] [
         lazyView placeholder msg
     ]

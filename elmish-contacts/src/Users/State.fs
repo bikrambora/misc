@@ -20,8 +20,8 @@ let (|Error|NoUsers|Users|) = function
 
 let root model dispatch =
     match model with
-    | Error msg   -> viewNoUsers msg
-    | NoUsers msg -> viewNoUsers msg
+    | Error msg   -> viewPlaceholder msg
+    | NoUsers msg -> viewPlaceholder msg
     | Users users -> viewUsernames users
 
 let update msg model : Model * Cmd<Msg> =
