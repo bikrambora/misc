@@ -33,3 +33,4 @@ type Model =
 type Msg =
     | FetchUsersSuccess of User list
     | FetchUsersError of System.Exception
+    | ClearError

@@ -29,10 +29,12 @@ let update msg model : Model * Cmd<Msg> =
     | FetchUsersSuccess users ->
       printfn "success: %A" (users |> List.head)
       {model with
-        users = users;
-        error = false}, []
+        users = users;}, clearError
     | FetchUsersError ex ->
       printfn "error: %A" ex
       {model with
         error = true;
         users = []}, []
+    | ClearError ->
+      {model with
+        error = false;}, []
