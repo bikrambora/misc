@@ -12,3 +12,6 @@ let fetchUsers url =
 
 let usersFetch =
     Cmd.ofPromise fetchUsers "https://jsonplaceholder.typicode.com/users" FetchUsersSuccess FetchUsersError
+
+let clearError =
+    Cmd.ofMsg ClearError
