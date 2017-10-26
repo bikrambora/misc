@@ -27,14 +27,16 @@ let root model dispatch =
 let update msg model : Model * Cmd<Msg> =
     match msg with
     | FetchUsersSuccess users ->
-      printfn "success: %A" (users |> List.head)
-      {model with
-        users = users;}, clearError
+        printfn "success: %A" (users |> List.head)
+        let newState = {model with users = users;}
+        newState, clearError
     | FetchUsersError ex ->
-      printfn "error: %A" ex
-      {model with
-        error = true;
-        users = []}, []
+        printfn "error: %A" ex
+        let newState = {model with error = true;}
+        newState, clearUser
     | ClearError ->
-      {model with
-        error = false;}, []
+        let newState = {model with error = false;}
+        newState, []
+    | ClearUsers ->
+        let newState = {model with users = [];}
+        newState, []

@@ -15,3 +15,6 @@ let usersFetch =
 
 let clearError =
     Cmd.ofMsg ClearError
+
+let clearUser =
+    Cmd.ofMsg ClearUsers
