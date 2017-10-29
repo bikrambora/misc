@@ -17,12 +17,12 @@ let viewPlaceholder msg =
     ]
 
 let tableRow xs =
-    R.tr[] [ for x in xs -> R.td [] [R.str x.name] ]
+    R.tr[] [ for x in xs -> lazyView placeholder x.name ]
 
 let viewUsernames users =
     R.table [ ClassName "table" ]
         [
-            R.thead [] [ R.td [] [R.str "Name"]];
+            R.thead [] [ R.tr [] [R.str "Name"] ];
             R.tbody [] [ tableRow users ]
         ]
     // R.section [] [
