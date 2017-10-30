@@ -16,16 +16,20 @@ let viewPlaceholder msg =
         lazyView placeholder msg
     ]
 
-let tableRow xs =
-    R.tr[] [ for x in xs -> lazyView placeholder x.name ]
+let viewHeaders() =
+    R.tr []
+        [R.td [] [R.str "Name"]
+         R.td [] [R.str "Email"]]
+
+let viewUsers =
+    List.map
+        (fun x ->
+            R.tr []
+                [R.td [] [R.str x.name]
+                 R.td [] [R.str x.email]])
 
 let viewUsernames users =
-    R.table [ ClassName "table" ]
-        [
-            R.thead [] [ R.tr [] [R.str "Name"] ];
-            R.tbody [] [ tableRow users ]
-        ]
-    // R.section [] [
-    //     R.ul []
-    //         (users |> List.map viewUsername)
-    // ]
+    R.table
+        [ ClassName "table" ]
+        [R.thead [] [viewHeaders()]
+         R.tbody [] (viewUsers users)]
