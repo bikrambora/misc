@@ -1,7 +1,6 @@
 var script = document.createElement('script');
 script.onload = function(e) {
-    // If we want to manage its lifecycle
-    // Right permissions will need to be set
+    // If we want to manage its lifecycle, the right permissions will need to be set
     // var conn = chrome.runtime.connect({ name: 'emrc_connection' });
     // conn.postMessage({
     //     name: 'INIT',

@@ -4,13 +4,22 @@
         alert('Misconfigured plugin, check your settings');
     }
 
+    // {String}
+    // HTTP location for the EMRC desktop API
     var ENDPOINT = opts.endpoint || misConfigured();
+
+    // {String}
+    // The id of the element we'll be inspecting for changes
     var ELEMENT_ID = opts.elementId || misConfigured();
+
+    // {Number}
+    // How often should we check for value change
     var POLL_INTERVAL = opts.pollInterval || 3000;
 
     var oldValue;
     var element = document.getElementById(ELEMENT_ID);
 
+    // Calls the EMRC desktop SET_CONTEXT API
     function setContext(id, ok) {
         var xhr = new XMLHttpRequest();
         xhr.open('GET', ENDPOINT + id, true);
@@ -26,6 +35,7 @@
         oldValue = id;
     }
 
+    // Interval callback to determine if context needs to be updated
     function onTick() {
         var newValue = element.value;
         if(oldValue === newValue) return;
@@ -33,7 +43,13 @@
         setContext(newValue, setCurrentId);
     }
 
+    // Initialize the current context value
     setCurrentId(element.value);
+
+    // If you're wondering about the use of `setInterval` here
+    // Unfortunately we can't programmatically listen to element changes (with <element>.on('type'...))
+    // unless the source page triggers and event, which would mean changes in the target EMR (which we wan't to avoid)
+    // So we need to fallback to a good old loop
     setInterval(onTick, POLL_INTERVAL);
 })({
     endpoint: 'http://localhost:3000/context/',
@@ -98,6 +114,7 @@
 //     }
 
 //     chrome.runtime.onConnect.addListener(function(port) {
+//         A further (and proper) check could be added here
 //         console.assert(port.name === 'emrc_connection');
 //         port.onMessage.addListener(function(msg) {
 //             switch(msg.name) {
