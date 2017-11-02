@@ -49,7 +49,7 @@
     // If you're wondering about the use of `setInterval` here
     // Unfortunately we can't programmatically listen to element changes (with <element>.on('type'...))
     // unless the source page triggers and event, which would mean changes in the target EMR (which we wan't to avoid)
-    // So we need to fallback to a good old loop
+    // So we need to fallback to a good old interval based loop
     setInterval(onTick, POLL_INTERVAL);
 })({
     endpoint: 'http://localhost:3000/context/',
