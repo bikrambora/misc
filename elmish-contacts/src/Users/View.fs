@@ -16,7 +16,7 @@ let viewPlaceholder msg =
         lazyView placeholder msg
     ]
 
-let viewHeaders() =
+let tableHeaders() =
     R.tr []
         [R.td [] [R.str "Name"]
          R.td [] [R.str "Email"]]
@@ -31,5 +31,5 @@ let viewUsers =
 let viewUsernames users =
     R.table
         [ ClassName "table" ]
-        [R.thead [] [viewHeaders()]
+        [R.thead [] [tableHeaders()]
          R.tbody [] (viewUsers users)]
