@@ -20,7 +20,8 @@ let tableHeaders() =
     R.tr []
         [R.td [] [R.str "Name"]
          R.td [] [R.str "Email"]
-         R.td [] [R.str "Company"]]
+         R.td [] [R.str "Company"]
+         R.td [] [R.str "Username"]]
 
 let viewUsers =
     List.map
@@ -28,7 +29,8 @@ let viewUsers =
             R.tr []
                 [R.td [] [R.str x.name]
                  R.td [] [R.str x.email]
-                 R.td [] [R.str x.company.name]])
+                 R.td [] [R.str x.company.name]
+                 R.td [] [R.str x.username]])
 
 let viewUsernames users =
     R.table
