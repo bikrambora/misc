@@ -6,6 +6,12 @@ EMRC Context Detection Chrome Plugin
     Navigate to `chrome://extensions` and click `Load unpacked extension...` and select this folder
     ![chrome-extensions](./images/chrome-extension.png)
 
+* Install dependencies
+
+    ```bash
+    npm install
+    ```
+
 * Run the project
 
     ```bash
