@@ -17,3 +17,5 @@ EMRC Context Detection Chrome Plugin
     ```bash
     npm start
     ```
+
+* Open `http://localhost:8080`
