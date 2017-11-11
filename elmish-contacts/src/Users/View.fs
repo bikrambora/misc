@@ -5,6 +5,9 @@ module R = Fable.Helpers.React
 open Fable.Helpers.React.Props
 open Types
 
+let headers =
+    ["Name"; "Email"; "Company"; "Username"; "City"]
+
 let placeholder msg =
     R.div [] [ R.str msg ]
 
