@@ -17,6 +17,7 @@ let viewPlaceholder msg =
 let tableHeaders =
     List.map (fun x -> R.td [] [R.str x])
 
+/// Renders a list of users
 let viewUsers =
     List.map
         (fun x ->
