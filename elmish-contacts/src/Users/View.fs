@@ -14,8 +14,8 @@ let placeholder msg =
 let viewPlaceholder msg =
     R.section [] [lazyView placeholder msg]
 
-let tableHeaders =
-    List.map (fun x -> R.td [] [R.str x])
+let tableHeaders headers =
+    [R.tr [] (List.map (fun x -> R.td [] [R.str x]) headers)]
 
 /// Renders a list of users
 let viewUsers =
@@ -31,5 +31,5 @@ let viewUsers =
 let viewUsernames users =
     R.table
         [ClassName "table"]
-        [R.thead [] [R.tr [] (tableHeaders headers)]
+        [R.thead [] (tableHeaders headers)
          R.tbody [] (viewUsers users)]
