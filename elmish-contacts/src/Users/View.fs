@@ -8,6 +8,7 @@ open Types
 let headers =
     ["Name"; "Email"; "Company"; "Username"; "City"]
 
+/// Renders a string inside a div
 let placeholder msg =
     R.div [] [R.str msg]
 
