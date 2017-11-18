@@ -14,6 +14,7 @@ let placeholder msg =
 let viewPlaceholder msg =
     R.section [] [lazyView placeholder msg]
 
+/// Renders a list of table headers
 let tableHeaders headers =
     [R.tr [] (List.map (fun x -> R.td [] [R.str x]) headers)]
 
