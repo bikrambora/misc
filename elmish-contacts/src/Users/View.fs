@@ -31,7 +31,7 @@ let viewUsers =
                  R.td [] [R.str x.address.city]])
 
 // Main render function for users list
-let viewUsernames users =
+let viewUsersTable users =
     R.table
         [ClassName "table"]
         [R.thead [] [R.tr [] (tableHeaders headers)]

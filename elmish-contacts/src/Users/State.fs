@@ -22,7 +22,7 @@ let root model dispatch =
     match model with
     | Error msg   -> viewPlaceholder msg
     | NoUsers msg -> viewPlaceholder msg
-    | Users users -> viewUsernames users
+    | Users users -> viewUsersTable users
 
 let update msg model : Model * Cmd<Msg> =
     match msg with
