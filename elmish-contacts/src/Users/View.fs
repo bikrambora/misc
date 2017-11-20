@@ -28,7 +28,8 @@ let viewUsers =
                  R.td [] [R.str x.email]
                  R.td [] [R.str x.company.name]
                  R.td [] [R.str x.username]
-                 R.td [] [R.str x.address.city]])
+                 R.td [] [R.str x.address.city]
+                 R.td [] [R.str x.website]])
 
 // Main render function for users list
 let viewUsersTable users =
