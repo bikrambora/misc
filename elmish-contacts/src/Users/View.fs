@@ -5,6 +5,7 @@ module R = Fable.Helpers.React
 open Fable.Helpers.React.Props
 open Types
 
+/// Static list of headers names
 let headers =
     ["Name"; "Email"; "Company"; "Username"; "City"]
 
