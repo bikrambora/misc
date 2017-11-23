@@ -7,7 +7,7 @@ open Types
 
 /// Static list of headers names
 let headers =
-    ["Name"; "Email"; "Company"; "Username"; "City"]
+    ["Name"; "Email"; "Company"; "Username"; "City"; "Website"]
 
 /// Renders a string inside a div
 let placeholder msg =
