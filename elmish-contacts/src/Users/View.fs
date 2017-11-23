@@ -21,7 +21,7 @@ let tableHeaders headers =
     [R.tr [] (List.map (fun x -> R.td [] [R.str x]) headers)]
 
 /// Renders a list of users
-let viewUsers =
+let usersTable =
     List.map
         (fun x ->
             R.tr []
@@ -33,8 +33,8 @@ let viewUsers =
                  R.td [] [R.str x.website]])
 
 // Main render function for users list
-let viewUsersTable users =
+let viewUsers users =
     R.table
         [ClassName "table"]
         [R.thead [] [R.tr [] (tableHeaders headers)]
-         R.tbody [] (viewUsers users)]
+         R.tbody [] (usersTable users)]
