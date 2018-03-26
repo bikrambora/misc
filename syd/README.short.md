@@ -34,7 +34,7 @@
 
 * I would like to book a flight
 * I need a plane ticket
-* Help me booking a flight
+* Help me to book a flight
 
 ### Set initialization and validation function
 > Select the right lambda function and alias as follows
@@ -43,7 +43,7 @@
 * Version or Alias: DEMO
 
 ### Create a Slot type
-> Select the plus icon next to 'Slot types'
+> Select the plus icon next to 'Slot types' in the left hand side panel
 
 > Select 'Create slot type'
 
