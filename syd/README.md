@@ -63,6 +63,7 @@
 ![conversation][conversation_image]
 
 ## Clean up
+> Go to the 'Cloud9' service and click 'Open IDE' for the Summit-Lex environment from the 'Shared with you' environments list
 
 ### Running clean up Lambda function
 > Click Run with the following sample payload
