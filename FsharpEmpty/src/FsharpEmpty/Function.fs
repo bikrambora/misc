@@ -9,6 +9,7 @@ open Amazon.Runtime
 open FSharp.AWS.DynamoDB
 
 open System
+open System.Net
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
 [<assembly: LambdaSerializer(typeof<Amazon.Lambda.Serialization.Json.JsonSerializer>)>]
@@ -44,15 +45,14 @@ type Function() =
 
         let ddb = new AmazonDynamoDBClient(RegionEndpoint.USEast1)
         let table = TableContext.Create<Message>(ddb, "appsync-demo-messages", createIfNotExists = true)
-        // let message = { 
-        //     id = Guid.NewGuid(); 
-        //     info = info; 
-        //     text = "this is a message from F#";
-        //     authorId = None;
-        //     createdAt = Some DateTimeOffset.Now;
-        //     updatedAt = None;
-        // }
-
-        let key = TableKey.Hash (Guid.Parse "")
+        let id = req.QueryStringParameters.["id"]
+    
+        ctx.Logger.LogLine (sprintf "Looking up document with id=%s" id)
+    
+        let key = TableKey.Hash (Guid.Parse id)
         let item = table.GetItem key
-        item
+        APIGatewayProxyResponse(
+            StatusCode = (int)HttpStatusCode.OK,
+            Body = item.ToString(),
+            Headers = dict[]
+        )

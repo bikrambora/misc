@@ -5,7 +5,6 @@ open Amazon.Lambda.TestUtilities
 open Amazon.Lambda.APIGatewayEvents
 
 open FsharpEmpty
-open System.Collections.Generic
 
 
 module FunctionTest =
@@ -16,12 +15,12 @@ module FunctionTest =
         let context = TestLambdaContext()
         let request = 
             APIGatewayProxyRequest(
-                QueryStringParameters = Dictionary<string, string>()
+                QueryStringParameters = dict["id", "a061ca4d-b46c-fec7-5b0b-5f9f1add4564"]
             )
         // "a061ca4d-b46c-fec7-5b0b-5f9f1add4564"
         let item = lambdaFunction.FunctionHandler request context
 
-        printfn "%A" item
+        printfn "%s" item.Body
 
         Assert.Equal(1, 1)
     
