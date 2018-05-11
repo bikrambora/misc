@@ -1,0 +1,7 @@
+/Users/lschejtm/Documents/Projects/misc/FsharpEmpty/src/FsharpEmpty/bin/Debug/netcoreapp2.0/FsharpEmpty.deps.json
+/Users/lschejtm/Documents/Projects/misc/FsharpEmpty/src/FsharpEmpty/bin/Debug/netcoreapp2.0/FsharpEmpty.runtimeconfig.json
+/Users/lschejtm/Documents/Projects/misc/FsharpEmpty/src/FsharpEmpty/bin/Debug/netcoreapp2.0/FsharpEmpty.runtimeconfig.dev.json
+/Users/lschejtm/Documents/Projects/misc/FsharpEmpty/src/FsharpEmpty/bin/Debug/netcoreapp2.0/FsharpEmpty.dll
+/Users/lschejtm/Documents/Projects/misc/FsharpEmpty/src/FsharpEmpty/bin/Debug/netcoreapp2.0/FsharpEmpty.pdb
+/Users/lschejtm/Documents/Projects/misc/FsharpEmpty/src/FsharpEmpty/obj/Debug/netcoreapp2.0/FsharpEmpty.dll
+/Users/lschejtm/Documents/Projects/misc/FsharpEmpty/src/FsharpEmpty/obj/Debug/netcoreapp2.0/FsharpEmpty.pdb
