@@ -41,11 +41,11 @@ type Message = {
 
 type Function() =
     member _this.FunctionHandler (req: APIGatewayProxyRequest) (ctx: ILambdaContext) =
-        ctx.Logger.LogLine (sprintf "Request: %s" req.Path)
+        ctx.Logger.LogLine (sprintf "Path: %s" req.PathParameters.["id"])
 
         let ddb = new AmazonDynamoDBClient(RegionEndpoint.USEast1)
         let table = TableContext.Create<Message>(ddb, "appsync-demo-messages", createIfNotExists = true)
-        let id = req.QueryStringParameters.["id"]
+        let id = req.PathParameters.["id"]
     
         ctx.Logger.LogLine (sprintf "Looking up document with id=%s" id)
     
