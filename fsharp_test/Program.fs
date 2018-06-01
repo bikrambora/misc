@@ -16,6 +16,7 @@ type Action =
     | Move of Move
 type KeyAction =
     | ArrowKey of Move
+    | ReportKey
     | ExitKey
     | InvalidKey
 
@@ -26,11 +27,12 @@ let dec = flip (-) 1
 let (|ValidMove|_|) (position:int, min:int, max:int) (_:Move) =
     if position >= min && position <= max then Some position else None
 
-let (|ArrowKey|ExitKey|InvalidKey|) = function
+let (|ArrowKey|ReportKey|ExitKey|InvalidKey|) = function
     | ConsoleKey.UpArrow    -> ArrowKey Up
     | ConsoleKey.DownArrow  -> ArrowKey Down
     | ConsoleKey.LeftArrow  -> ArrowKey Left
     | ConsoleKey.RightArrow -> ArrowKey Right
+    | ConsoleKey.R          -> ReportKey
     | ConsoleKey.Escape     -> ExitKey
     | _                     -> InvalidKey
 
@@ -56,6 +58,8 @@ let main argv =
         match Console.ReadKey(true).Key with
         | ArrowKey direction -> printfn "%s" (string direction)
                                 moveTo state direction |> gameLoop
+        | ReportKey          -> printfn "%A" state.robot.position
+                                gameLoop state                        
         | ExitKey            -> printfn "exiting"
                                 state
         | InvalidKey         -> printfn "wrong input"
