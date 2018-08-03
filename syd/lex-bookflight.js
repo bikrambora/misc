@@ -82,7 +82,7 @@ const buildValidationResult = (isValid, violatedSlot, messageContent) => ({
 });
 
 const validateFlight = slots => {
-    console.log(slots);
+    console.log("validateFlight=", slots);
     const fromCountry = slots.FromCountry;
     const toCountry = slots.ToCountry;
     const when = slots.When;
@@ -112,15 +112,29 @@ const validateFlight = slots => {
 }
 
 const bookFlight = (intentRequest, callback) => {
-    const FromCountry = intentRequest.currentIntent.slots.FromCountry;
-    const ToCountry = intentRequest.currentIntent.slots.ToCountry;
-    const When = intentRequest.currentIntent.slots.When;
-    const FlightClass = intentRequest.currentIntent.slots.FlightClass;
+    const slots = intentRequest.currentIntent.slots;
+
+    const FromCountry = slots.FromCountry || slots.Fromcountry || slots.fromCountry || slots.fromcountry || null;
+    const ToCountry = slots.ToCountry || slots.Tocountry || slots.toCountry || slots.tocountry || null;
+    const When = slots.When || slots.when || null;
+    const FlightClass = slots.FlightClass || slots.flightClass || slots.Flightclass || slots.flightclass || null;
+
+    console.log(JSON.stringify(intentRequest));
 
     if (intentRequest.invocationSource === 'DialogCodeHook') {
-        const validationResult = validateFlight(intentRequest.currentIntent.slots);
+        const curated = {FromCountry, ToCountry, When, FlightClass};
+
+        console.log('curated begin');
+        console.log(curated);
+        console.log('curated end');
+
+        const validationResult = validateFlight(curated);
         if (validationResult.isValid) {
-            return callback(delegate(intentRequest.currentIntent.slots));
+            const del = delegate(curated);
+            console.log('del begin');
+            console.log(del);
+            console.log('del end');
+            return callback(del);
         }
         
         const slots = intentRequest.currentIntent.slots;
@@ -146,12 +160,12 @@ const bookFlight = (intentRequest, callback) => {
 const dispatch = (intentRequest, callback) => {
     console.log(`dispatch userId=${intentRequest.userId}, intentName=${intentRequest.currentIntent.name}`);
 
-    const intentName = intentRequest.currentIntent.name;
+    //const intentName = intentRequest.currentIntent.name;
 
-    if (intentName === 'BookPlaneTicket') {
+    //if (intentName === 'BookPlaneTicket') {
         return bookFlight(intentRequest, callback);
-    }
-    throw new Error(`Intent with name ${intentName} not supported`);
+    //}
+    //throw new Error(`Intent with name ${intentName} not supported`);
 }
 
 // --------------- Main handler -----------------------
@@ -163,9 +177,9 @@ exports.handler = (event, context, callback) => {
         process.env.TZ = 'Australia/Sydney';
         console.log(`event.bot.name=${event.bot.name}`);
         
-        if (event.bot.name != 'BookFlight') {
-             callback('Invalid Bot Name');
-        }
+        //if (event.bot.name != 'BookFlight') {
+        //     callback('Invalid Bot Name');
+        //}
         
         dispatch(event, (response) => loggingCallback(response, callback));
     } catch (err) {
