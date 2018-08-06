@@ -62,22 +62,6 @@
 ### Sample conversation
 ![conversation][conversation_image]
 
-## Clean up
-> Go to the 'Cloud9' service and click 'Open IDE' for the Summit-Lex environment from the 'Shared with you' environments list
-
-### Running clean up Lambda function
-> Click Run with the following sample payload
-
-```javascript
-{
-  "bot": "BookFlight",
-  "intent": "BookPlaneTicket",
-  "slot": "FlightClass"
-}
-```
-
-![cleanup][cleanup_image]
-
 
 [amazon_lex_image]: https://s3.amazonaws.com/demo.aws-sa.com/markdown/images/amazon_lex.png
 [create_bot_image]: https://s3.amazonaws.com/demo.aws-sa.com/markdown/images/create_bot.png
@@ -93,4 +77,3 @@
 [build_bot_image]: https://s3.amazonaws.com/demo.aws-sa.com/markdown/images/build_bot.png
 [expand_panel_image]: https://s3.amazonaws.com/demo.aws-sa.com/markdown/images/expand_panel.png
 [conversation_image]: https://s3.amazonaws.com/demo.aws-sa.com/markdown/images/conversation.png
-[cleanup_image]: https://s3.amazonaws.com/demo.aws-sa.com/markdown/images/cleanup.png
