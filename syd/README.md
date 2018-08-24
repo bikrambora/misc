@@ -70,7 +70,7 @@
 [name_intent_image]: https://s3.amazonaws.com/demo.aws-sa.com/markdown/images/name_intent.png
 [add_utterance_image]: https://s3.amazonaws.com/demo.aws-sa.com/markdown/images/add_utterances.png
 [lambda_validation_image]: https://s3.amazonaws.com/demo.aws-sa.com/markdown/images/lambda_validation.png
-[create_slot_image]: .https://s3.amazonaws.com/demo.aws-sa.com/markdown/images/create_slot.png
+[create_slot_image]: https://s3.amazonaws.com/demo.aws-sa.com/markdown/images/create_slot.png
 [add_slot_image]: https://s3.amazonaws.com/demo.aws-sa.com/markdown/images/add_slot.png
 [add_slots_image]: https://s3.amazonaws.com/demo.aws-sa.com/markdown/images/add_slots.png
 [fulfillment_action_image]: https://s3.amazonaws.com/demo.aws-sa.com/markdown/images/fulfillment_action.png
